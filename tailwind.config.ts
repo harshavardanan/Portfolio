@@ -5,10 +5,10 @@ const {
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    // Adjust the paths to match your project structure
+    "./src/**/*.{js,jsx,ts,tsx}",
     "./pages/**/*.{js,jsx,ts,tsx}",
     "./components/**/*.{js,jsx,ts,tsx}",
-    "./app/**/*.{js,jsx,ts,tsx}", // For Next.js 13+ (if using the `/app` directory)
+    "./app/**/*.{js,jsx,ts,tsx}",
   ],
   darkMode: "class",
   theme: {
@@ -31,7 +31,7 @@ module.exports = {
   plugins: [addVariablesForColors],
 };
 
-// This plugin adds each Tailwind color as a global CSS variable, e.g. var(--gray-200).
+
 function addVariablesForColors({ addBase, theme }: any) {
   let allColors = flattenColorPalette(theme("colors"));
   let newVars = Object.fromEntries(
