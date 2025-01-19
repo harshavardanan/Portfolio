@@ -1,15 +1,16 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { IconHome, IconMessage, IconUser } from "@tabler/icons-react";
+import { FloatingNav } from "./ui/FloatingNavbar";
 import Hero from "./Hero";
 import Projects from "./Projects";
 import Contact from "./Contact";
 
-const FloatingNav: React.FC<{
+const CustomFloatingNav: React.FC<{
   navItems: { name: string; link: string; icon: React.ReactNode }[];
 }> = ({ navItems }) => {
   const [isVisible, setIsVisible] = useState(true);
-  const [activeSection, setActiveSection] = useState<string | null>("home");
+  const [activeSection, setActiveSection] = useState<string | null>("hero");
   let lastScrollY = 0;
 
   useEffect(() => {
@@ -32,6 +33,7 @@ const FloatingNav: React.FC<{
         }
       });
     };
+
     const observer = new IntersectionObserver(handleSectionChange, {
       threshold: 0.5,
     });
@@ -56,28 +58,13 @@ const FloatingNav: React.FC<{
   };
 
   return (
-    <nav
-      className={`fixed top-0 left-0 w-full bg-white dark:bg-black shadow-md z-50 transition-transform ${
-        isVisible ? "translate-y-0" : "-translate-y-full"
-      }`}
-    >
-      <div className="container mx-auto px-6 py-4 flex justify-between items-center">
-        {navItems.map((item, index) => (
-          <button
-            key={index}
-            onClick={() => scrollToSection(item.link)}
-            className={`flex items-center space-x-2 text-sm font-medium transition ${
-              activeSection === item.link
-                ? "text-blue-500 dark:text-blue-400"
-                : "text-neutral-600 dark:text-white hover:text-blue-500 dark:hover:text-blue-400"
-            }`}
-          >
-            {item.icon}
-            <span>{item.name}</span>
-          </button>
-        ))}
-      </div>
-    </nav>
+    <FloatingNav
+      navItems={navItems.map((item) => ({
+        name: item.name,
+        link: `#${item.link}`,
+        icon: item.icon,
+      }))}
+    />
   );
 };
 
@@ -86,23 +73,25 @@ export default function Navbar() {
     {
       name: "Hero",
       link: "hero",
-      icon: <IconHome className="h-5 w-5" />,
+      icon: <IconHome className="h-5 w-5 text-neutral-500 dark:text-white" />,
     },
     {
       name: "Projects",
       link: "projects",
-      icon: <IconUser className="h-5 w-5" />,
+      icon: <IconUser className="h-5 w-5 text-neutral-500 dark:text-white" />,
     },
     {
       name: "Contact",
       link: "contact",
-      icon: <IconMessage className="h-5 w-5" />,
+      icon: (
+        <IconMessage className="h-5 w-5 text-neutral-500 dark:text-white" />
+      ),
     },
   ];
 
   return (
-    <div className="relative  w-full">
-      <FloatingNav navItems={navItems} />
+    <div className="relative w-full">
+      <CustomFloatingNav navItems={navItems} />
       <Content />
     </div>
   );
@@ -115,68 +104,15 @@ const Content: React.FC = () => (
     </section>
     <section
       id="projects"
-      className="min-h-screen bg-gray-900 flex items-center justify-center"
+      className="min-h-screen w-full bg-gray-900 flex items-center justify-center"
     >
       <Projects />
     </section>
     <section
       id="contact"
-      className="min-h-screen bg-green-500 flex items-center justify-center"
+      className="min-h-screen w-full bg-green-500 flex items-center justify-center"
     >
       <Contact />
     </section>
   </main>
 );
-
-// "use client";
-// import React from "react";
-// import { FloatingNav } from "./ui/FloatingNavbar";
-// import { IconHome, IconMessage, IconUser } from "@tabler/icons-react";
-// import Hero from "./Hero";
-// import Projects from "./Projects";
-// import Contact from "./Contact";
-// export function FloatingNavDemo() {
-//   const navItems = [
-//     {
-//       name: "Hero",
-//       link: "hero",
-//       icon: <IconHome className="h-5 w-5" />,
-//     },
-//     {
-//       name: "Projects",
-//       link: "projects",
-//       icon: <IconUser className="h-5 w-5" />,
-//     },
-//     {
-//       name: "Contact",
-//       link: "contact",
-//       icon: <IconMessage className="h-5 w-5" />,
-//     },
-//   ];
-//   return (
-//     <div className="relative  w-full">
-//       <FloatingNav navItems={navItems} />
-//       <Content />
-//     </div>
-//   );
-// }
-
-// const Content: React.FC = () => (
-//   <main>
-//     <section id="hero" className="">
-//       <Hero />
-//     </section>
-//     <section
-//       id="projects"
-//       className="min-h-screen bg-gray-900 flex items-center justify-center"
-//     >
-//       <Projects />
-//     </section>
-//     <section
-//       id="contact"
-//       className="min-h-screen bg-green-500 flex items-center justify-center"
-//     >
-//       <Contact />
-//     </section>
-//   </main>
-// );
