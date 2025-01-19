@@ -101,7 +101,7 @@ export default function Navbar() {
   ];
 
   return (
-    <div>
+    <div className="relative  w-full">
       <FloatingNav navItems={navItems} />
       <Content />
     </div>
@@ -127,3 +127,56 @@ const Content: React.FC = () => (
     </section>
   </main>
 );
+
+// "use client";
+// import React from "react";
+// import { FloatingNav } from "./ui/FloatingNavbar";
+// import { IconHome, IconMessage, IconUser } from "@tabler/icons-react";
+// import Hero from "./Hero";
+// import Projects from "./Projects";
+// import Contact from "./Contact";
+// export function FloatingNavDemo() {
+//   const navItems = [
+//     {
+//       name: "Hero",
+//       link: "hero",
+//       icon: <IconHome className="h-5 w-5" />,
+//     },
+//     {
+//       name: "Projects",
+//       link: "projects",
+//       icon: <IconUser className="h-5 w-5" />,
+//     },
+//     {
+//       name: "Contact",
+//       link: "contact",
+//       icon: <IconMessage className="h-5 w-5" />,
+//     },
+//   ];
+//   return (
+//     <div className="relative  w-full">
+//       <FloatingNav navItems={navItems} />
+//       <Content />
+//     </div>
+//   );
+// }
+
+// const Content: React.FC = () => (
+//   <main>
+//     <section id="hero" className="">
+//       <Hero />
+//     </section>
+//     <section
+//       id="projects"
+//       className="min-h-screen bg-gray-900 flex items-center justify-center"
+//     >
+//       <Projects />
+//     </section>
+//     <section
+//       id="contact"
+//       className="min-h-screen bg-green-500 flex items-center justify-center"
+//     >
+//       <Contact />
+//     </section>
+//   </main>
+// );
