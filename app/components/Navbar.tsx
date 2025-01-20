@@ -110,7 +110,7 @@ const Content: React.FC = () => (
     </section>
     <section
       id="contact"
-      className="min-h-screen w-full bg-green-500 flex items-center justify-center"
+      className="min-h-screen w-full flex items-center justify-center"
     >
       <Contact />
     </section>
