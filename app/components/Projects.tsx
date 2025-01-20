@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion"; // Ensure framer-motion is installed
+import { WobbleCard } from "./ui/wobble-card";
 
 interface Project {
   id: number;
@@ -48,13 +49,14 @@ const Projects: React.FC = () => {
               className="project-card bg-zinc-900 text-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow"
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
+              whileHover={{ scale: 1.03, rotate: 1 }}
               transition={{
-                delay: 0.2,
-                duration: 0.6,
-                ease: "easeInOut",
+                type: "spring",
+                stiffness: 200,
+                damping: 10,
               }}
             >
-              <div className="relative">
+              <WobbleCard className="relative">
                 <img
                   src={`https://opengraph.githubassets.com/1/${project.html_url.replace(
                     "https://github.com/",
@@ -94,7 +96,7 @@ const Projects: React.FC = () => {
                     </span>
                   </button>
                 </a>
-              </div>
+              </WobbleCard>
             </motion.div>
           ))}
         </div>
