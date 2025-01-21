@@ -1,10 +1,13 @@
+"use client";
 import React from "react";
 import { GlobeDemo } from "./GlobeDemo";
+import ContactForm from "./ContactForm";
 
 const Contact = () => {
   return (
-    <div>
+    <div className="h-full w-full bg-black">
       <GlobeDemo />
+      <ContactForm />
     </div>
   );
 };

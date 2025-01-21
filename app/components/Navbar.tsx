@@ -35,7 +35,7 @@ const CustomFloatingNav: React.FC<{
     };
 
     const observer = new IntersectionObserver(handleSectionChange, {
-      threshold: 0.3, // Adjust threshold for better accuracy
+      threshold: 0.3,
     });
 
     const sections = document.querySelectorAll("section");
@@ -59,7 +59,7 @@ const CustomFloatingNav: React.FC<{
 
   return (
     <div
-      className={`fixed top-0 w-full transition-all ${
+      className={`fixed top-0 left-0 w-full z-50 transition-all ${
         isVisible ? "opacity-100" : "opacity-0 pointer-events-none"
       }`}
     >
@@ -77,7 +77,7 @@ const CustomFloatingNav: React.FC<{
 export default function Navbar() {
   const navItems = [
     {
-      name: "Hero",
+      name: "Home",
       link: "hero",
       icon: <IconHome className="h-5 w-5 text-neutral-500 dark:text-white" />,
     },
@@ -105,13 +105,13 @@ export default function Navbar() {
 
 const Content: React.FC = () => (
   <main>
-    <section id="hero">
+    <section id="hero" className="relative z-10">
       <Hero />
     </section>
-    <section id="projects">
+    <section id="projects" className="relative z-10">
       <Projects />
     </section>
-    <section id="contact">
+    <section id="contact" className="relative z-10 w-full h-full">
       <Contact />
     </section>
   </main>
