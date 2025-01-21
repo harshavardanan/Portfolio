@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import Social from "./Social";
+import { FloatingDockDemo } from "./FloatingDockDemo";
 
 const ContactForm = () => {
   return (
@@ -23,7 +23,8 @@ const ContactForm = () => {
           Send
         </button>
       </form>
-      <Social />
+
+      <FloatingDockDemo />
     </div>
   );
 };
