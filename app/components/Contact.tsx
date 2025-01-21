@@ -1,9 +1,10 @@
 import React from "react";
+import { GlobeDemo } from "./GlobeDemo";
 
 const Contact = () => {
   return (
     <div>
-      <p>hello</p>
+      <GlobeDemo />
     </div>
   );
 };

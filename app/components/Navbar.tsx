@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { IconHome, IconMessage, IconUser } from "@tabler/icons-react";
 import { FloatingNav } from "./ui/FloatingNavbar";
 import Hero from "./Hero";
@@ -11,17 +11,17 @@ const CustomFloatingNav: React.FC<{
 }> = ({ navItems }) => {
   const [isVisible, setIsVisible] = useState(true);
   const [activeSection, setActiveSection] = useState<string | null>("hero");
-  let lastScrollY = 0;
+  const lastScrollY = useRef(0);
 
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-      if (currentScrollY > lastScrollY) {
+      if (currentScrollY > lastScrollY.current) {
         setIsVisible(false);
       } else {
         setIsVisible(true);
       }
-      lastScrollY = currentScrollY;
+      lastScrollY.current = currentScrollY;
     };
 
     const handleSectionChange = (entries: IntersectionObserverEntry[]) => {
@@ -35,7 +35,7 @@ const CustomFloatingNav: React.FC<{
     };
 
     const observer = new IntersectionObserver(handleSectionChange, {
-      threshold: 0.5,
+      threshold: 0.3, // Adjust threshold for better accuracy
     });
 
     const sections = document.querySelectorAll("section");
@@ -58,13 +58,19 @@ const CustomFloatingNav: React.FC<{
   };
 
   return (
-    <FloatingNav
-      navItems={navItems.map((item) => ({
-        name: item.name,
-        link: `#${item.link}`,
-        icon: item.icon,
-      }))}
-    />
+    <div
+      className={`fixed top-0 w-full transition-all ${
+        isVisible ? "opacity-100" : "opacity-0 pointer-events-none"
+      }`}
+    >
+      <FloatingNav
+        navItems={navItems.map((item) => ({
+          name: item.name,
+          link: `#${item.link}`,
+          icon: item.icon,
+        }))}
+      />
+    </div>
   );
 };
 
@@ -99,19 +105,13 @@ export default function Navbar() {
 
 const Content: React.FC = () => (
   <main>
-    <section id="hero" className="">
+    <section id="hero">
       <Hero />
     </section>
-    <section
-      id="projects"
-      className="min-h-screen w-full bg-gray-900 flex items-center justify-center"
-    >
+    <section id="projects">
       <Projects />
     </section>
-    <section
-      id="contact"
-      className="min-h-screen w-full flex items-center justify-center"
-    >
+    <section id="contact">
       <Contact />
     </section>
   </main>
