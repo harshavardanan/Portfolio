@@ -1,4 +1,5 @@
 "use client";
+import { GridBackgroundDemo } from "./ui/grid-backgorund";
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion"; // Ensure framer-motion is installed
 import { WobbleCard } from "./ui/wobble-card";
@@ -12,7 +13,7 @@ interface Project {
 
 const Projects: React.FC = () => {
   const [projects, setProjects] = useState<Project[]>([]);
-  const [visibleCount, setVisibleCount] = useState(9);
+  const [visibleCount, setVisibleCount] = useState(6);
 
   const fetchProjects = async () => {
     try {
@@ -102,16 +103,24 @@ const Projects: React.FC = () => {
               </motion.div>
             ))}
           </div>
-          {visibleCount < projects.length && (
-            <div className="text-center mt-8">
+          <div className="text-center mt-8 space-x-4">
+            {visibleCount < projects.length && (
               <button
-                onClick={() => setVisibleCount(visibleCount + 9)}
+                onClick={() => setVisibleCount(visibleCount + 6)}
                 className="bg-emerald-500 text-white py-2 px-6 rounded-lg shadow-md transition-transform transform hover:-translate-y-1 focus:ring focus:ring-emerald-300"
               >
                 Show More
               </button>
-            </div>
-          )}
+            )}
+            {visibleCount > 6 && (
+              <button
+                onClick={() => setVisibleCount(6)}
+                className="bg-red-500 text-white py-2 px-6 rounded-lg shadow-md transition-transform transform hover:-translate-y-1 focus:ring focus:ring-red-300"
+              >
+                Show Less
+              </button>
+            )}
+          </div>
         </>
       )}
     </div>
