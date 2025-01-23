@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
 import { IconHome, IconMessage, IconUser } from "@tabler/icons-react";
-import { FloatingNav } from "./ui/FloatingNavbar";
+import FloatingNav from "./ui/FloatingNavbar";
 import Hero from "./Hero";
 import Projects from "./Projects";
 import Contact from "./Contact";

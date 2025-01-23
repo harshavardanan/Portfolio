@@ -24,7 +24,7 @@ const ContactForm = () => {
         </button>
       </form>
 
-      <FloatingDockDemo />
+      {/* <FloatingDockDemo /> */}
     </div>
   );
 };
