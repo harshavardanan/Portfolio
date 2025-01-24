@@ -395,7 +395,7 @@ export function GlobeDemo() {
   ];
 
   return (
-    <div className="flex flex-col items-center justify-center py-10 h-screen bg-gradient-to-b from-gray-900 to-black text-white w-full">
+    <div className="flex flex-col items-center justify-center py-10 h-screen bg-black text-white w-full">
       <div className="max-w-7xl mx-auto w-full h-full md:h-[35rem] px-4 flex flex-col justify-between relative mt-0 md:mt-10">
         <motion.div
           initial={{

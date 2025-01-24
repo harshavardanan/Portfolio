@@ -4,7 +4,7 @@ import { FloatingDockDemo } from "./FloatingDockDemo";
 
 const ContactForm = () => {
   return (
-    <div className="bg-gradient-to-b from-gray-900 to-black text-white py-20 px-6 text-center">
+    <div className="bg-black text-white py-20 px-6 text-center">
       <h2 className="text-5xl font-semibold mb-4">Get in touch</h2>
       <p className="text-lg max-w-2xl mx-auto mb-6 text-gray-300">
         Whether you're looking for innovative solutions or just want to chat?

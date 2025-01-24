@@ -18,6 +18,10 @@ module.exports = {
   darkMode: "class",
   theme: {
     extend: {
+      colors: {
+        background: "var(--background)",
+        foreground: "var(--foreground)",
+      },
       animation: {
         aurora: "aurora 60s linear infinite",
       },
