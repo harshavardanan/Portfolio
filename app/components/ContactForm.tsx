@@ -1,31 +1,45 @@
 "use client";
-import React from "react";
-import { FloatingDockDemo } from "./FloatingDockDemo";
+import React, { useState } from "react";
+import { motion } from "framer-motion";
+import { LampDemo, LampContainer } from "./ui/lamp";
 
 const ContactForm = () => {
-  return (
-    <div className="bg-black text-white py-20 px-6 text-center">
-      <h2 className="text-5xl font-semibold mb-4">Get in touch</h2>
-      <p className="text-lg max-w-2xl mx-auto mb-6 text-gray-300">
-        Whether you're looking for innovative solutions or just want to chat?
-      </p>
-      <form className="flex justify-center items-center gap-2 max-w-lg mx-auto">
-        <input
-          type="email"
-          placeholder="Your email address"
-          autoComplete="off"
-          className="w-full py-3 px-4 text-white bg-gray-800 border border-gray-600 rounded-md outline-none focus:ring-2 focus:ring-blue-500"
-        />
-        <button
-          type="submit"
-          className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-6 rounded-md transition duration-200"
-        >
-          Send
-        </button>
-      </form>
+  const [message, setMessage] = useState("");
 
-      {/* <FloatingDockDemo /> */}
-    </div>
+  return (
+    <>
+      <div className="relative  flex flex-col items-center px-5 ">
+        {" "}
+        <form className="max-w-2xl mx-auto space-y-4">
+          <div className="flex flex-col md:flex-row gap-4">
+            <input
+              type="text"
+              placeholder="Your name"
+              autoComplete="off"
+              className="w-full py-3 px-4 text-white bg-gray-800 border border-gray-600 rounded-md outline-none focus:ring-2 focus:ring-blue-500"
+            />
+            <input
+              type="email"
+              placeholder="Your email address"
+              autoComplete="off"
+              className="w-full py-3 px-4 text-white bg-gray-800 border border-gray-600 rounded-md outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+          <textarea
+            placeholder="Type your message here..."
+            rows={4}
+            value={message}
+            className="w-full py-3 px-4 text-white bg-gray-800 border border-gray-600 rounded-md outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+          />
+          <button
+            type="submit"
+            className="inline-flex h-12 animate-shimmer items-center justify-center rounded-md border border-slate-800 bg-[linear-gradient(110deg,#000103,45%,#1e2631,55%,#000103)] bg-[length:200%_100%] px-6 font-medium text-slate-400 transition-colors focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50"
+          >
+            Send Message
+          </button>
+        </form>
+      </div>
+    </>
   );
 };
 
