@@ -21,7 +21,6 @@ const ContactForm: React.FC = () => {
 
   const [status, setStatus] = useState<string>("");
 
-  // Handle input changes
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -30,24 +29,20 @@ const ContactForm: React.FC = () => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setStatus("Sending...");
 
-    try {
-      const response = await fetch("http://localhost:5000/send-email", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
+    const response = await fetch("/api/send-email", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData),
+    });
 
-      const result = await response.json();
-      if (result.success) {
-        setStatus("Email sent successfully!");
-        setFormData({ name: "", email: "", message: "" });
-      } else {
-        setStatus("Failed to send email. Please try again.");
-      }
-    } catch (error) {
-      setStatus("An error occurred. Please try again later.");
+    const result = await response.json();
+
+    if (result.success) {
+      setStatus("Email sent successfully!");
+      setFormData({ name: "", email: "", message: "" });
+    } else {
+      setStatus("Failed to send email. Please try again.");
     }
   };
 
@@ -57,6 +52,9 @@ const ContactForm: React.FC = () => {
         text="Have a project idea?"
         revealText="Let's build it!"
       />
+      <TextRevealCardDescription className="text-white-400 text-sm">
+        Feel free to drop a message. I'll get back to you as soon as possible.
+      </TextRevealCardDescription>
 
       <form onSubmit={handleSubmit} className="max-w-2xl w-[40rem] space-y-4">
         <div className="flex flex-col gap-4">
