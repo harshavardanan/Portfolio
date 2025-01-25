@@ -1,34 +1,92 @@
 "use client";
-import React, { useState } from "react";
-import { motion } from "framer-motion";
-import { LampDemo, LampContainer } from "./ui/lamp";
+import React, { useState, ChangeEvent, FormEvent } from "react";
+import {
+  TextRevealCard,
+  TextRevealCardDescription,
+  TextRevealCardTitle,
+} from "./ui/text-reveal";
 
-const ContactForm = () => {
-  const [message, setMessage] = useState("");
+interface FormData {
+  name: string;
+  email: string;
+  message: string;
+}
+
+const ContactForm: React.FC = () => {
+  const [formData, setFormData] = useState<FormData>({
+    name: "",
+    email: "",
+    message: "",
+  });
+
+  const [status, setStatus] = useState<string>("");
+
+  // Handle input changes
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setStatus("Sending...");
+
+    try {
+      const response = await fetch("http://localhost:5000/send-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      const result = await response.json();
+      if (result.success) {
+        setStatus("Email sent successfully!");
+        setFormData({ name: "", email: "", message: "" });
+      } else {
+        setStatus("Failed to send email. Please try again.");
+      }
+    } catch (error) {
+      setStatus("An error occurred. Please try again later.");
+    }
+  };
 
   return (
-    <>
-      <div className="relative  flex flex-col items-center px-5 ">
-        {" "}
-        <form className="max-w-2xl mx-auto space-y-4">
-          <div className="flex flex-col md:flex-row gap-4">
-            <input
-              type="text"
-              placeholder="Your name"
-              autoComplete="off"
-              className="w-full py-3 px-4 text-white bg-gray-800 border border-gray-600 rounded-md outline-none focus:ring-2 focus:ring-blue-500"
-            />
-            <input
-              type="email"
-              placeholder="Your email address"
-              autoComplete="off"
-              className="w-full py-3 px-4 text-white bg-gray-800 border border-gray-600 rounded-md outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
+    <div className="flex flex-col items-center justify-center bg-black h-[40rem] rounded-2xl w-full p-8 space-y-8">
+      <TextRevealCard
+        text="Have a project idea?"
+        revealText="Let's build it!"
+      />
+
+      <form onSubmit={handleSubmit} className="max-w-2xl w-[40rem] space-y-4">
+        <div className="flex flex-col gap-4">
+          <input
+            type="text"
+            name="name"
+            placeholder="Your name"
+            autoComplete="off"
+            value={formData.name}
+            onChange={handleChange}
+            required
+            className="w-full py-3 px-4 text-white bg-gray-800 border border-gray-600 rounded-md outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <input
+            type="email"
+            name="email"
+            placeholder="Your email address"
+            autoComplete="off"
+            value={formData.email}
+            onChange={handleChange}
+            required
+            className="w-full py-3 px-4 text-white bg-gray-800 border border-gray-600 rounded-md outline-none focus:ring-2 focus:ring-blue-500"
+          />
           <textarea
+            name="message"
             placeholder="Type your message here..."
             rows={4}
-            value={message}
+            value={formData.message}
+            onChange={handleChange}
+            required
             className="w-full py-3 px-4 text-white bg-gray-800 border border-gray-600 rounded-md outline-none focus:ring-2 focus:ring-blue-500 resize-none"
           />
           <button
@@ -37,9 +95,10 @@ const ContactForm = () => {
           >
             Send Message
           </button>
-        </form>
-      </div>
-    </>
+        </div>
+        {status && <p className="text-white mt-4">{status}</p>}
+      </form>
+    </div>
   );
 };
 

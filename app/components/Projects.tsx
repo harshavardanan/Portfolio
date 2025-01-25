@@ -1,7 +1,7 @@
 "use client";
 import { GridBackgroundDemo } from "./ui/grid-backgorund";
 import React, { useState, useEffect } from "react";
-import { motion } from "framer-motion"; // Ensure framer-motion is installed
+import { motion } from "framer-motion";
 import { WobbleCard } from "./ui/wobble-card";
 
 interface Project {
@@ -13,7 +13,8 @@ interface Project {
 
 const Projects: React.FC = () => {
   const [projects, setProjects] = useState<Project[]>([]);
-  const [visibleCount, setVisibleCount] = useState(6);
+  const [currentPage, setCurrentPage] = useState(1);
+  const projectsPerPage = 6;
 
   const fetchProjects = async () => {
     try {
@@ -32,21 +33,26 @@ const Projects: React.FC = () => {
     fetchProjects();
   }, []);
 
-  useEffect(() => {
-    console.log("Projects state updated:", projects);
-  }, [projects]);
+  const indexOfLastProject = currentPage * projectsPerPage;
+  const indexOfFirstProject = indexOfLastProject - projectsPerPage;
+  const currentProjects = projects.slice(
+    indexOfFirstProject,
+    indexOfLastProject
+  );
+
+  const totalPages = Math.ceil(projects.length / projectsPerPage);
 
   return (
     <div className="projects-container py-20 bg-black min-h-screen">
       <h1 className="text-center text-4xl font-bold text-white mb-10">
-        My GitHub Projects
+        Project Highlights
       </h1>
       {projects.length === 0 ? (
         <p className="text-white text-center text-lg">Loading projects...</p>
       ) : (
         <>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-4">
-            {projects.slice(0, visibleCount).map((project) => (
+            {currentProjects.map((project) => (
               <motion.div
                 key={project.id}
                 className="project-card bg-zinc-900 text-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow"
@@ -68,58 +74,38 @@ const Projects: React.FC = () => {
                     alt={project.name}
                     className="w-full h-40 object-cover rounded-lg mb-4"
                   />
-                  <h3 className="text-xl font-semibold mb-2">{project.name}</h3>
-                  <p className="text-sm mb-4">
+                  <h3 className="text-xl font-semibold mb-2 line-clamp-2">
+                    {project.name}
+                  </h3>
+                  <p className="text-sm mb-4 line-clamp-2">
                     {project.description || "No description available."}
                   </p>
                   <a
                     href={project.html_url}
                     target="_blank"
                     rel="noopener noreferrer"
+                    className="inline-block bg-blue-500 text-white font-semibold py-2 px-4 rounded-full shadow-md transition-transform transform hover:-translate-y-1 focus:ring focus:ring-emerald-300"
                   >
-                    <button className="relative group bg-emerald-500 text-white font-semibold py-2 px-4 rounded-full shadow-md transition-transform transform hover:-translate-y-1 focus:ring focus:ring-emerald-300">
-                      <span className="absolute inset-0 rounded-full bg-gradient-to-r from-emerald-400 via-emerald-500 to-emerald-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-                      <span className="relative flex items-center space-x-2">
-                        <span>View on GitHub</span>
-                        <svg
-                          fill="none"
-                          height="16"
-                          viewBox="0 0 24 24"
-                          width="16"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M10.75 8.75L14.25 12L10.75 15.25"
-                            stroke="currentColor"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="1.5"
-                          />
-                        </svg>
-                      </span>
-                    </button>
+                    View on GitHub
                   </a>
                 </WobbleCard>
               </motion.div>
             ))}
           </div>
           <div className="text-center mt-8 space-x-4">
-            {visibleCount < projects.length && (
+            {Array.from({ length: totalPages }, (_, index) => (
               <button
-                onClick={() => setVisibleCount(visibleCount + 6)}
-                className="bg-emerald-500 text-white py-2 px-6 rounded-lg shadow-md transition-transform transform hover:-translate-y-1 focus:ring focus:ring-emerald-300"
+                key={index}
+                onClick={() => setCurrentPage(index + 1)}
+                className={`py-2 px-4 rounded-lg shadow-md transition-transform transform hover:-translate-y-1 focus:ring ${
+                  currentPage === index + 1
+                    ? "bg-blue-500 text-white"
+                    : "bg-gray-500 text-white"
+                }`}
               >
-                Show More
+                {index + 1}
               </button>
-            )}
-            {visibleCount > 6 && (
-              <button
-                onClick={() => setVisibleCount(6)}
-                className="bg-red-500 text-white py-2 px-6 rounded-lg shadow-md transition-transform transform hover:-translate-y-1 focus:ring focus:ring-red-300"
-              >
-                Show Less
-              </button>
-            )}
+            ))}
           </div>
         </>
       )}
