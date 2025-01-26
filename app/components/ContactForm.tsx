@@ -1,10 +1,7 @@
 "use client";
 import React, { useState, ChangeEvent, FormEvent } from "react";
-import {
-  TextRevealCard,
-  TextRevealCardDescription,
-  TextRevealCardTitle,
-} from "./ui/text-reveal";
+import { TextRevealCard, TextRevealCardDescription } from "./ui/text-reveal";
+import { HoverBorderGradient } from "./ui/hover-border-gradient";
 
 interface FormData {
   name: string;
@@ -39,24 +36,24 @@ const ContactForm: React.FC = () => {
     const result = await response.json();
 
     if (result.success) {
-      setStatus("Email sent successfully!");
+      setStatus("Thanks, I have received your message!");
       setFormData({ name: "", email: "", message: "" });
     } else {
-      setStatus("Failed to send email. Please try again.");
+      setStatus("Failed to send message. Please try again.");
     }
   };
 
   return (
-    <div className="flex flex-col items-center justify-center bg-black h-[40rem] rounded-2xl w-full p-8 space-y-8">
+    <div className="flex flex-col items-center justify-center bg-black rounded-2xl w-full p-6 sm:p-8 space-y-8 h-auto sm:h-[40rem]">
       <TextRevealCard
         text="Have a project idea?"
         revealText="Let's build it!"
       />
-      <TextRevealCardDescription className="text-white-400 text-sm">
+      <TextRevealCardDescription className="text-white-400 text-sm text-center">
         Feel free to drop a message. I'll get back to you as soon as possible.
       </TextRevealCardDescription>
 
-      <form onSubmit={handleSubmit} className="max-w-2xl w-[40rem] space-y-4">
+      <form onSubmit={handleSubmit} className="w-full max-w-2xl space-y-4">
         <div className="flex flex-col gap-4">
           <input
             type="text"
@@ -87,14 +84,14 @@ const ContactForm: React.FC = () => {
             required
             className="w-full py-3 px-4 text-white bg-gray-800 border border-gray-600 rounded-md outline-none focus:ring-2 focus:ring-blue-500 resize-none"
           />
-          <button
-            type="submit"
-            className="inline-flex h-12 animate-shimmer items-center justify-center rounded-md border border-slate-800 bg-[linear-gradient(110deg,#000103,45%,#1e2631,55%,#000103)] bg-[length:200%_100%] px-6 font-medium text-slate-400 transition-colors focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50"
-          >
-            Send Message
+          <button type="submit" className="p-[1px] relative">
+            <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg" />
+            <div className="px-8 py-2  bg-black rounded-[6px]  relative group transition duration-200 text-white hover:bg-transparent">
+              Send Message
+            </div>
           </button>
         </div>
-        {status && <p className="text-white mt-4">{status}</p>}
+        {status && <p className="text-white mt-4 text-center">{status}</p>}
       </form>
     </div>
   );
