@@ -1,11 +1,9 @@
 "use client";
 import React from "react";
-import SpotlightPreview from "./ui/SpotlightPreview";
 import { motion } from "framer-motion";
 import { LampContainer } from "./ui/lamp";
 
 const Hero = () => {
-  // return <SpotlightPreview />;
   return (
     <LampContainer>
       <motion.h1
@@ -19,15 +17,9 @@ const Hero = () => {
         className="mt-12 bg-gradient-to-br from-slate-300 to-slate-500 py-4 bg-clip-text text-center text-4xl font-semibold tracking-tight text-transparent md:text-6xl"
       >
         Harshavardanan <br />
-        <p className="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-blue-500 mt-2">
+        <p className="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-blue-500 mt-2 sm:text-4xl md:text-5xl">
           FullStack Web Developer
         </p>
-        {/* <p className="mt-6 font-normal text-lg text-neutral-300 max-w-2xl mx-auto leading-relaxed">
-          I'm a passionate web developer who loves creating dynamic and
-          user-friendly web applications. I enjoy turning ideas into reality
-          with clean code, intuitive designs, and a focus on seamless user
-          experiences.
-        </p> */}
       </motion.h1>
     </LampContainer>
   );

@@ -34,7 +34,7 @@ const Footer = () => {
             <IconBrandLinkedin size={28} />
           </a>
           <a
-            href="https://medium.com/@harshamoorthy22"
+            href="https://medium.com/@harshavardanan22"
             target="_blank"
             rel="noopener noreferrer"
             className="hover:text-gray-400 transition-colors"

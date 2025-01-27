@@ -5,7 +5,7 @@ import img from "./logo.png";
 import { TypewriterEffectSmooth } from "./ui/typewriter-effect";
 import { TextGenerateEffect } from "./ui/text-generate-effect";
 
-const introText = `I am a passionate full-stack developer and open-source contributor, actively building and maintaining npm libraries that enhance the developer experience. With expertise in technologies like React, Node.js, Express, MongoDB, Tailwind CSS, Azure, Python, and JavaScript. I create scalable and efficient web applications. I am driven by a mission to empower developers, share knowledge, and contribute to the ever-evolving web development landscape.`;
+const introText = `I am a passionate full-stack developer and open-source contributor, actively building and maintaining npm libraries that enhance the developer experience. With expertise in technologies like React, Node.js, Express, MongoDB, Tailwind CSS, Azure, Python and JavaScript. I create scalable and efficient web applications. I am driven by a mission to empower developers, share knowledge, and contribute to the ever-evolving web development landscape.`;
 
 const About: React.FC = () => {
   return (
@@ -19,13 +19,16 @@ const About: React.FC = () => {
       />
       <TypewriterEffectSmooth
         words={[
-          { text: "👋 Hi there, I'm" },
+          {
+            text: "👋 Hi there, I'm",
+          },
           {
             text: "Harshavardanan Moorthy",
             className: "text-blue-500",
           },
         ]}
       />
+
       <p className="text-sm sm:text-base md:text-lg lg:text-xl max-w-xs sm:max-w-md md:max-w-lg lg:max-w-3xl text-center text-white opacity-90 leading-relaxed">
         <TextGenerateEffect words={introText} />
       </p>

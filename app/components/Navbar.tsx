@@ -7,7 +7,6 @@ const Navbar = () => {
   const [activeSection, setActiveSection] = useState<string | null>("hero");
   const [menuOpen, setMenuOpen] = useState(false);
   const lastScrollY = useRef(0);
-  const [bgColor, setBgColor] = useState("transparent");
 
   useEffect(() => {
     const handleScroll = () => {
@@ -21,11 +20,6 @@ const Navbar = () => {
         if (entry.isIntersecting) {
           const sectionId = entry.target.id;
           setActiveSection(sectionId);
-
-          // Get background color of the intersecting section
-          const computedStyle = window.getComputedStyle(entry.target);
-          const bgColor = computedStyle.backgroundColor;
-          setBgColor(bgColor);
 
           window.history.replaceState(null, "", `#${sectionId}`);
         }
@@ -47,15 +41,27 @@ const Navbar = () => {
     };
   }, []);
 
+  // Scroll to hero section when "Harsh" is clicked
+  const scrollToHero = () => {
+    const heroSection = document.getElementById("hero");
+    if (heroSection) {
+      heroSection.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <nav
-      className={`fixed top-0 left-0 w-full z-50 transition-all ${
+      className={`fixed top-0 left-0 w-full z-50 bg-black transition-all ${
         isVisible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-full"
       }`}
-      style={{ backgroundColor: bgColor }}
     >
       <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center text-white">
-        <div className="text-2xl font-bold">Logo</div>
+        <div
+          className="text-2xl font-bold cursor-pointer"
+          onClick={scrollToHero}
+        >
+          Harsh
+        </div>
 
         {/* Desktop Menu */}
         <ul className="hidden md:flex gap-8 text-lg font-medium">

@@ -1,7 +1,6 @@
 "use client";
 import React, { useState, ChangeEvent, FormEvent } from "react";
 import { TextRevealCard, TextRevealCardDescription } from "./ui/text-reveal";
-import { HoverBorderGradient } from "./ui/hover-border-gradient";
 
 interface FormData {
   name: string;
@@ -45,10 +44,13 @@ const ContactForm: React.FC = () => {
 
   return (
     <div className="flex flex-col items-center justify-center bg-black rounded-2xl w-full p-6 sm:p-8 space-y-8 h-auto sm:h-[40rem]">
-      <TextRevealCard
-        text="Have a project idea?"
-        revealText="Let's build it!"
-      />
+      <div className="flex justify-center text-center w-full">
+        <TextRevealCard
+          text="Have a project idea?"
+          revealText="Let's build it!"
+        />
+      </div>
+
       <TextRevealCardDescription className="text-white-400 text-sm text-center">
         Feel free to drop a message. I'll get back to you as soon as possible.
       </TextRevealCardDescription>
