@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { Inter } from "next/font/google";
-import { cn } from "./components/ui/lib/utils";
+//import { Inter } from "next/font/google";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -14,7 +13,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const inter = Inter({ subsets: ["latin"] });
+//const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Harshavardanan",
@@ -29,8 +28,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        // className={`${geistSans.variable} ${geistMono.variable} antialiased "bg-black text-white"`}
-        className={cn(inter.className, "bg-black text-white")}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased "bg-black text-white"`}
+        // className={cn(inter.className, "bg-black text-white")}
       >
         {children}
       </body>

@@ -46,12 +46,12 @@ const ContactForm: React.FC = () => {
     <div className="flex flex-col items-center justify-center bg-black rounded-2xl w-full p-6 sm:p-8 space-y-8 h-auto sm:h-[40rem]">
       <div className="flex justify-center text-center w-full">
         <TextRevealCard
-          text="Have a project idea?"
-          revealText="Let's build it!"
+          text="You bring the logic"
+          revealText="I’ll show my magic."
         />
       </div>
 
-      <TextRevealCardDescription className="text-white-400 text-sm text-center">
+      <TextRevealCardDescription>
         Feel free to drop a message. I'll get back to you as soon as possible.
       </TextRevealCardDescription>
 

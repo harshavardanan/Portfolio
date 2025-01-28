@@ -8,7 +8,7 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <main className="pt-16">
+      <main className="pt-16" suppressHydrationWarning={true}>
         {" "}
         <section id="hero" className="relative z-10">
           <Hero />

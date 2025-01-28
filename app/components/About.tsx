@@ -29,9 +29,9 @@ const About: React.FC = () => {
         ]}
       />
 
-      <p className="text-sm sm:text-base md:text-lg lg:text-xl max-w-xs sm:max-w-md md:max-w-lg lg:max-w-3xl text-center text-white opacity-90 leading-relaxed">
+      <div className="text-sm sm:text-base md:text-lg lg:text-xl max-w-xs sm:max-w-md md:max-w-lg lg:max-w-3xl text-center text-white opacity-90 leading-relaxed">
         <TextGenerateEffect words={introText} />
-      </p>
+      </div>
       <div className="absolute inset-0 pointer-events-none bg-black bg-opacity-40 [mask-image:radial-gradient(ellipse_at_center,transparent_30%,black)]"></div>
     </div>
   );

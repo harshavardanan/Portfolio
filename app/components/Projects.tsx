@@ -1,5 +1,4 @@
 "use client";
-import { GridBackgroundDemo } from "./ui/grid-backgorund";
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { WobbleCard } from "./ui/wobble-card";
