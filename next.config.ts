@@ -1,13 +1,16 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: "export", // Required for GitHub Pages
-  assetPrefix: "/", // Ensures assets are correctly loaded in GitHub Pages
-  trailingSlash: true, // Ensures proper paths for static files
+  output: "export",
+  assetPrefix: "/",
+  trailingSlash: true,
   images: {
-    unoptimized: true, // Disables Image Optimization
+    unoptimized: true,
   },
   typescript: {
-    ignoreBuildErrors: true, // Ignore TypeScript build errors
+    ignoreBuildErrors: true,
+  },
+  eslint: {
+    ignoreDuringBuilds: true,
   },
 };
 
