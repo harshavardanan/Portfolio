@@ -73,7 +73,7 @@ export const TextRevealCard = ({
     >
       {children}
 
-      <div className="h-40  relative flex items-center overflow-hidden">
+      <div className="h-40 text-center relative flex items-center overflow-hidden">
         <motion.div
           style={{
             width: "100%",
@@ -89,13 +89,13 @@ export const TextRevealCard = ({
                 }
           }
           transition={isMouseOver ? { duration: 0 } : { duration: 0.4 }}
-          className="absolute bg-[#1d1c20] z-20  will-change-transform"
+          className="absolute bg-[#1d1c20] text-center z-20  will-change-transform"
         >
           <p
             style={{
               textShadow: "4px 4px 15px rgba(0,0,0,0.5)",
             }}
-            className="text-base sm:text-[3rem] py-10 font-bold text-white bg-clip-text text-transparent bg-gradient-to-b from-white to-neutral-300"
+            className="text-base text-center sm:text-[3rem] py-10 font-bold text-white bg-clip-text text-transparent bg-gradient-to-b from-white to-neutral-300"
           >
             {revealText}
           </p>
@@ -143,7 +143,9 @@ export const TextRevealCardDescription = ({
   className?: string;
 }) => {
   return (
-    <p className={twMerge("text-[#a9a9a9] text-sm", className)}>{children}</p>
+    <p className={twMerge("text-[#a9a9a9] text-center text-sm", className)}>
+      {children}
+    </p>
   );
 };
 

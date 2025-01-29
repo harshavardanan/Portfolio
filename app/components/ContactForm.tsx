@@ -52,7 +52,8 @@ const ContactForm: React.FC = () => {
       </div>
 
       <TextRevealCardDescription>
-        Feel free to drop a message. I'll get back to you as soon as possible.
+        Feel free to drop a message. I&apos;ll get back to you as soon as
+        possible.
       </TextRevealCardDescription>
 
       <form onSubmit={handleSubmit} className="w-full max-w-2xl space-y-4">

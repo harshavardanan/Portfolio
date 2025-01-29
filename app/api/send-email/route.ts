@@ -3,7 +3,9 @@ import nodemailer from "nodemailer";
 
 export async function POST(req: NextRequest) {
   try {
-    const { EMAIL_USER, EMAIL_PASS, RECEIVER_EMAIL } = process.env;
+    //const { EMAIL_USER, EMAIL_PASS, RECEIVER_EMAIL } = process.env;
+    const EMAIL_USER = "harshavardanan2209@gmail.com";
+    const EMAIL_PASS = "errm lkqr kcmz zgwy";
 
     if (!EMAIL_USER || !EMAIL_PASS) {
       return NextResponse.json(
@@ -31,7 +33,7 @@ export async function POST(req: NextRequest) {
 
     const mailOptions = {
       from: `"${name}" <${email}>`,
-      to: RECEIVER_EMAIL || "harshamoorthy22@gmail.com",
+      to: "harshamoorthy22@gmail.com",
       subject: "New message from portfolio contact form",
       text: `From: ${name} <${email}>\n\nMessage:\n${message}`,
     };
@@ -41,12 +43,12 @@ export async function POST(req: NextRequest) {
       { success: true, message: "Email sent successfully!" },
       { status: 200 }
     );
-  } catch (error: any) {
+  } catch (error: string | unknown) {
     console.error("Error sending email:", error);
     return NextResponse.json(
       {
         success: false,
-        error: error.message || "An unexpected error occurred.",
+        error: "An unexpected error occurred.",
       },
       { status: 500 }
     );
