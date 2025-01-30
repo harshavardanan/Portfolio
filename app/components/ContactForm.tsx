@@ -27,7 +27,7 @@ const ContactForm: React.FC = () => {
     e.preventDefault();
 
     const response = await fetch(
-      "https://email-server-opal.vercel.app/api/send-email",
+      "https://email-server-component.vercel.app/api/send-email",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
