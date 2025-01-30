@@ -9,7 +9,8 @@ const PORT = process.env.PORT || 5000;
 app.use(express.json());
 app.use(cors());
 
-app.get("/api", (req, res) => {
+app.get("/", (req, res) => {
+  res.send("Welcome to the server!");
   res.json({ message: "Hello, API is working!" });
 });
 
