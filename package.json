@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-   "build":"cross-env TS_IGNORE_ERRORS=true next build",
+    "build": "npm install --force && npm run build",
     "start": "next start",
     "lint": "next lint",
     "deploy": "npm run build && npm run export"
