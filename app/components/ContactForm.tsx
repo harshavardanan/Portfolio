@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, ChangeEvent, FormEvent } from "react";
 import { TextRevealCard, TextRevealCardDescription } from "./ui/text-reveal";
+require("dotenv").config();
 
 interface FormData {
   name: string;
@@ -26,14 +27,11 @@ const ContactForm: React.FC = () => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const response = await fetch(
-      "https://email-server-component.vercel.app/api/send-email",
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      }
-    );
+    const response = await fetch(process.env.NEXT_PUBLIC_EMAIL_URI, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData),
+    });
 
     const result = await response.json();
 

@@ -16,18 +16,37 @@ const Navbar = () => {
     };
 
     const handleSectionChange = (entries: IntersectionObserverEntry[]) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const sectionId = entry.target.id;
-          setActiveSection(sectionId);
+      let foundSection = false;
+      let closestSection: string | null = null;
+      let minDistance = Infinity;
 
+      entries.forEach((entry) => {
+        const sectionId = entry.target.id;
+        const rect = entry.boundingClientRect;
+        const distance = Math.abs(rect.top);
+
+        if (entry.isIntersecting) {
+          foundSection = true;
+          setActiveSection(sectionId);
           window.history.replaceState(null, "", `#${sectionId}`);
         }
+
+        // Store closest section for fallback
+        if (distance < minDistance) {
+          minDistance = distance;
+          closestSection = sectionId;
+        }
       });
+
+      // If no section is fully visible, use the closest section
+      if (!foundSection && closestSection) {
+        setActiveSection(closestSection);
+      }
     };
 
     const observer = new IntersectionObserver(handleSectionChange, {
-      threshold: 0.5,
+      threshold: [0.25, 0.6], // Better accuracy across sections
+      rootMargin: "0px 0px -15% 0px", // Improves detection when scrolling fast
     });
 
     const sections = document.querySelectorAll("section");
@@ -41,7 +60,6 @@ const Navbar = () => {
     };
   }, []);
 
-  // Scroll to hero section when "Harsh" is clicked
   const scrollToHero = () => {
     const heroSection = document.getElementById("hero");
     if (heroSection) {
@@ -60,7 +78,11 @@ const Navbar = () => {
           className="text-2xl font-bold cursor-pointer"
           onClick={scrollToHero}
         >
-          Harsh
+          <img
+            src="./favicon.ico"
+            alt="Logo"
+            className="w-10 h-10 rounded-full"
+          />
         </div>
 
         {/* Desktop Menu */}

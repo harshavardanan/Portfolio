@@ -6,12 +6,12 @@ import { Timeline } from "./ui/timeline";
 export function About() {
   const data = [
     {
-      title: "2024",
+      title: "2024 - 2025",
       content: (
         <div>
           <p className=" text-neutral-200 text-xs md:text-sm font-normal mb-8">
             Pursuing Masters in Advanced computer science at University of
-            leicester
+            Leicester
           </p>
           <div className="grid grid-cols-2 gap-4">
             <Image
@@ -51,7 +51,7 @@ export function About() {
       content: (
         <div>
           <p className="text-neutral-200 text-xs md:text-sm font-normal mb-8">
-            Full-Stack Developer | Tata Consultancy Services
+            Full-Stack Developer at Tata Consultancy Services
             <br />
             Proficient in technologies such as React, Node.js, MongoDB, Express,
             and Azure.
