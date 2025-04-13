@@ -13,6 +13,7 @@
     "@react-three/drei": "^9.121.3",
     "@react-three/fiber": "^9.0.0-alpha.8",
     "@tabler/icons-react": "^3.28.1",
+    "@tailwindcss/line-clamp": "^0.4.4",
     "@tsparticles/engine": "^3.8.0",
     "@tsparticles/react": "^3.0.0",
     "@tsparticles/slim": "^3.8.0",

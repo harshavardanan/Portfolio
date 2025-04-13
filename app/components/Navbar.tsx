@@ -31,22 +31,20 @@ const Navbar = () => {
           window.history.replaceState(null, "", `#${sectionId}`);
         }
 
-        // Store closest section for fallback
         if (distance < minDistance) {
           minDistance = distance;
           closestSection = sectionId;
         }
       });
 
-      // If no section is fully visible, use the closest section
       if (!foundSection && closestSection) {
         setActiveSection(closestSection);
       }
     };
 
     const observer = new IntersectionObserver(handleSectionChange, {
-      threshold: [0.25, 0.6], // Better accuracy across sections
-      rootMargin: "0px 0px -15% 0px", // Improves detection when scrolling fast
+      threshold: [0.25, 0.6],
+      rootMargin: "0px 0px -15% 0px",
     });
 
     const sections = document.querySelectorAll("section");
@@ -84,8 +82,6 @@ const Navbar = () => {
             className="w-10 h-10 rounded-full"
           />
         </div>
-
-        {/* Desktop Menu */}
         <ul className="hidden md:flex gap-8 text-lg font-medium">
           {navItems.map((item) => (
             <li key={item.name}>
@@ -100,16 +96,12 @@ const Navbar = () => {
             </li>
           ))}
         </ul>
-
-        {/* Mobile Menu Button */}
         <div className="md:hidden">
           <button onClick={() => setMenuOpen(!menuOpen)} className="text-white">
             {menuOpen ? <FiX size={28} /> : <FiMenu size={28} />}
           </button>
         </div>
       </div>
-
-      {/* Mobile Menu Dropdown */}
       <div
         className={`md:hidden flex flex-col items-center bg-black bg-opacity-90 backdrop-blur-lg transition-all ${
           menuOpen ? "max-h-screen py-6 opacity-100" : "max-h-0 opacity-0"

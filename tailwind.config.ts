@@ -22,6 +22,7 @@ module.exports = {
     },
   },
   plugins: [
+    require("@tailwindcss/line-clamp"),
     addVariablesForColors,
     function ({ matchUtilities, theme }: any) {
       matchUtilities(
