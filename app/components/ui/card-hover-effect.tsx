@@ -75,7 +75,7 @@ export const Card = ({
       )}
     >
       <div className="relative z-50 h-full">
-        <div className="flex flex-col  h-full w-full">{children}</div>
+        <div className="flex flex-col h-full w-full">{children}</div>
       </div>
     </div>
   );
@@ -129,7 +129,7 @@ export const CardLanguage = ({
   return (
     <p
       className={cn(
-        "absolute  bottom-1 right-4 text--400 text-xs font-medium",
+        "absolute  bottom-1 right-4 text-400 text-xs font-medium",
         className
       )}
     >
