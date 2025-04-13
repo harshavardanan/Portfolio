@@ -53,10 +53,10 @@ const ContactForm: React.FC = () => {
 
   return (
     <div className="flex flex-col items-center justify-center bg-black rounded-2xl w-full p-6 sm:p-8 space-y-8 h-auto sm:h-[40rem]">
-      <div className="flex justify-center text-center w-full">
+      <div className="flex h-full justify-center text-center w-full">
         <TextRevealCard
-          text="You bring the logic"
-          revealText="I’ll show my magic."
+          text="Don't tell anyone..."
+          revealText="I'm Batman 🦇"
         />
       </div>
 
@@ -98,7 +98,7 @@ const ContactForm: React.FC = () => {
           />
           <button
             type="submit"
-            className="relative bottom-0 flex justify-center items-center gap-2 border border-[#444aee] rounded-xl text-[#FFF] font-black bg-[#000] uppercase px-8 py-4 z-10 overflow-hidden ease-in-out duration-700 group hover:text-[#000] hover:bg-[#FFF] active:scale-95 active:duration-0 focus:bg-[#FFF] focus:text-[#000] isolation-auto before:absolute before:w-full before:transition-all before:duration-700 before:hover:w-full before:-left-full before:hover:left-0 before:rounded-full before:bg-[#FFF] before:-z-10 before:aspect-square before:hover:scale-150 before:hover:duration-700"
+            className="relative bottom-0 flex justify-center items-center gap-2 border border-[#444aee] rounded-xl text-[#FFF] font-black bg-[#000] px-8 py-4 z-10 overflow-hidden ease-in-out duration-700 group hover:text-[#000] hover:bg-[#FFF] active:scale-95 active:duration-0 focus:bg-[#FFF] focus:text-[#000] isolation-auto before:absolute before:w-full before:transition-all before:duration-700 before:hover:w-full before:-left-full before:hover:left-0 before:rounded-full before:bg-[#FFF] before:-z-10 before:aspect-square before:hover:scale-150 before:hover:duration-700"
             disabled={loading}
           >
             <span

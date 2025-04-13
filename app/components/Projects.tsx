@@ -63,6 +63,15 @@ const Projects: React.FC = () => {
 
   return (
     <div className="projects-container bg-black text-white px-4 sm:px-6 md:px-10 py-16 sm:py-20">
+      <div className="w-full text-center py-8">
+        <p className="text-2xl md:text-3xl font-semibold text-white tracking-wide">
+          Welcome to <span className="text-purple-500">CodeCave</span>,
+          <br className="hidden md:block" />
+          where the <span className="text-slate-300">Batman of code</span>{" "}
+          dwells 🦇
+        </p>
+      </div>
+
       <div className="max-w-5xl mx-auto px-8">
         <HoverEffect items={paginatedProjects} />
 
