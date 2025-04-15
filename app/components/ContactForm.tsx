@@ -16,8 +16,9 @@ const ContactForm: React.FC = () => {
     message: "",
   });
 
-  const [status, setStatus] = useState<string>("");
-  const [loading, setLoading] = useState<boolean>(false);
+  const [buttonState, setButtonState] = useState<"idle" | "sending" | "sent">(
+    "idle"
+  );
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -27,27 +28,34 @@ const ContactForm: React.FC = () => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setLoading(true);
+    setButtonState("sending");
 
     try {
-      const response = await fetch(process.env.NEXT_PUBLIC_EMAIL_URI!, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL!}/api/send-email`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
+        }
+      );
 
       const result = await response.json();
 
       if (result.success) {
-        setStatus("Thanks, I have received your message!");
         setFormData({ name: "", email: "", message: "" });
+        setButtonState("sent");
       } else {
-        setStatus("Failed to send message. Please try again.");
+        setButtonState("idle");
       }
     } catch (error) {
-      setStatus("Something went wrong. Please try again later.");
+      setButtonState("idle");
     } finally {
-      setLoading(false);
+      if (buttonState !== "sent") {
+        setTimeout(() => setButtonState("idle"), 2500);
+      } else {
+        setTimeout(() => setButtonState("idle"), 3000);
+      }
     }
   };
 
@@ -59,7 +67,6 @@ const ContactForm: React.FC = () => {
           revealText="I'm Batman 🦇"
         />
       </div>
-
       <TextRevealCardDescription>
         Feel free to drop a message. I&apos;ll get back to you as soon as
         possible.
@@ -98,47 +105,58 @@ const ContactForm: React.FC = () => {
           />
           <button
             type="submit"
-            className="relative bottom-0 flex justify-center items-center gap-2 border border-[#444aee] rounded-xl text-[#FFF] font-black bg-[#000] px-8 py-4 z-10 overflow-hidden ease-in-out duration-700 group hover:text-[#000] hover:bg-[#FFF] active:scale-95 active:duration-0 focus:bg-[#FFF] focus:text-[#000] isolation-auto before:absolute before:w-full before:transition-all before:duration-700 before:hover:w-full before:-left-full before:hover:left-0 before:rounded-full before:bg-[#FFF] before:-z-10 before:aspect-square before:hover:scale-150 before:hover:duration-700"
-            disabled={loading}
+            disabled={buttonState !== "idle"}
+            className={`
+              relative flex items-center justify-center gap-2
+              px-6 py-3 rounded-lg font-medium text-white
+              bg-blue-600 hover:bg-blue-700 active:bg-blue-800
+              transition-all duration-300 ease-in-out
+              overflow-hidden min-w-[160px]
+              disabled:opacity-80 disabled:cursor-not-allowed
+              border border-blue-400
+            `}
           >
             <span
-              className={`truncate ease-in-out duration-300 ${
-                loading
-                  ? "opacity-0 -translate-x-96"
+              className={`transition-all duration-300 ${
+                buttonState !== "idle"
+                  ? "opacity-0 -translate-x-4"
                   : "opacity-100 translate-x-0"
               }`}
             >
               Send Message
             </span>
-
             <div
-              className={`absolute flex flex-row justify-center items-center gap-2 ease-in-out duration-300 ${
-                loading
-                  ? "opacity-100 translate-x-0"
-                  : "opacity-0 -translate-x-96"
+              className={`absolute flex items-center gap-2 transition-all duration-300 ${
+                buttonState === "sending" ? "opacity-100" : "opacity-0"
               }`}
             >
-              <div className="animate-spin size-4 border-2 border-[#000] border-t-transparent rounded-full" />
-              <span className="text-[#000]">Sending...</span>
+              <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+              <span>Sending...</span>
             </div>
-
-            <svg
-              className={`fill-[#FFF] group-hover:fill-[#000] ease-in-out duration-700 ${
-                loading ? "translate-x-96" : "translate-x-0"
+            <span
+              className={`absolute transition-all duration-300 ${
+                buttonState === "sent" ? "opacity-100" : "opacity-0"
               }`}
-              stroke="currentColor"
-              fill="currentColor"
-              strokeWidth={0}
-              viewBox="0 0 512 512"
-              height={16}
-              width={16}
-              xmlns="http://www.w3.org/2000/svg"
             >
-              <path d="m476.59 227.05-.16-.07L49.35 49.84A23.56 23.56 0 0 0 27.14 52 24.65 24.65 0 0 0 16 72.59v113.29a24 24 0 0 0 19.52 23.57l232.93 43.07a4 4 0 0 1 0 7.86L35.53 303.45A24 24 0 0 0 16 327v113.31A23.57 23.57 0 0 0 26.59 460a23.94 23.94 0 0 0 13.22 4 24.55 24.55 0 0 0 9.52-1.93L476.4 285.94l.19-.09a32 32 0 0 0 0-58.8z" />
+              Message Sent
+            </span>
+            <svg
+              className={`w-4 h-4 transition-all duration-300 ${
+                buttonState !== "idle"
+                  ? "opacity-0 translate-x-4"
+                  : "opacity-100 translate-x-0"
+              }`}
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fillRule="evenodd"
+                d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z"
+                clipRule="evenodd"
+              />
             </svg>
           </button>
         </div>
-        {status && <p className="text-white mt-4 text-center">{status}</p>}
       </form>
     </div>
   );

@@ -2,11 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Reset and base styles */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
+
+/* Apply 'cursor: none' ONLY to non-touch devices */
+@media (pointer: fine) {
+  * {
+    cursor: none;
+  }
+  html,
+  body,
+  button {
+    cursor: none;
+  }
+}
+
 html,
 body {
   height: 100%;

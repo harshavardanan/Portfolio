@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { HoverEffect } from "./ui/card-hover-effect";
 import { IconArrowNarrowLeft, IconArrowNarrowRight } from "@tabler/icons-react";
+import SendButton from "./SendButton";
 
 interface Project {
   id: number;
@@ -62,7 +63,7 @@ const Projects: React.FC = () => {
   );
 
   return (
-    <div className="projects-container bg-black text-white px-4 sm:px-6 md:px-10 py-16 sm:py-20">
+    <div className="projects-container bg-black cursor-none text-white px-4 sm:px-6 md:px-10 py-16 sm:py-20">
       <div className="w-full text-center py-8">
         <p className="text-2xl md:text-3xl font-semibold text-white tracking-wide">
           Welcome to <span className="text-purple-500">CodeCave</span>,
@@ -71,18 +72,16 @@ const Projects: React.FC = () => {
           dwells 🦇
         </p>
       </div>
-
-      <div className="max-w-5xl mx-auto px-8">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 ">
         <HoverEffect items={paginatedProjects} />
-
         {projects.length > ITEMS_PER_PAGE && (
           <div className="flex justify-center items-center gap-6 mt-10">
             <button
               onClick={handlePrev}
               disabled={currentPage === 0}
-              className={`w-10 h-10 flex items-center justify-center bg-neutral-200 dark:bg-neutral-800 border-3 border-transparent rounded-full focus:border-[#6D64F7] focus:outline-none hover:-translate-y-0.5 active:translate-y-0.5 transition duration-200 disabled:opacity-40`}
+              className={`w-10 h-10 flex cursor-none items-center justify-center bg-neutral-800 border-3 border-transparent rounded-full focus:border-[#6D64F7] focus:outline-none hover:-translate-y-0.5 active:translate-y-0.5 transition duration-200 disabled:opacity-40`}
             >
-              <IconArrowNarrowLeft className="text-neutral-600 dark:text-neutral-200" />
+              <IconArrowNarrowLeft className="text-neutral-200" />
             </button>
 
             <span className="text-white text-sm">
@@ -92,9 +91,9 @@ const Projects: React.FC = () => {
             <button
               onClick={handleNext}
               disabled={currentPage === totalPages - 1}
-              className={`w-10 h-10 flex items-center justify-center bg-neutral-200 dark:bg-neutral-800 border-3 border-transparent rounded-full focus:border-[#6D64F7] focus:outline-none hover:-translate-y-0.5 active:translate-y-0.5 transition duration-200 disabled:opacity-40`}
+              className={`w-10 h-10 cursor-none flex items-center justify-center bg-neutral-800 border-3 border-transparent rounded-full focus:border-[#6D64F7] focus:outline-none hover:-translate-y-0.5 active:translate-y-0.5 transition duration-200 disabled:opacity-40`}
             >
-              <IconArrowNarrowRight className="text-neutral-600 dark:text-neutral-200" />
+              <IconArrowNarrowRight className="text-neutral-200" />
             </button>
           </div>
         )}
