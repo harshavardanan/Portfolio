@@ -2,28 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Reset and base styles */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  cursor: url("cursor.svg"), auto;
 }
-
-/* Apply 'cursor: none' ONLY to non-touch devices */
-@media (pointer: fine) {
-  * {
-    cursor: none;
-  }
-  html,
-  body,
-  button {
-    cursor: none;
-  }
-}
-
 html,
 body {
   height: 100%;
   font-family: "Inter", sans-serif;
   overscroll-behavior: none;
+  cursor: url("cursor.svg"), auto;
+}
+button {
+  cursor: url("cursor.svg"), auto;
 }
