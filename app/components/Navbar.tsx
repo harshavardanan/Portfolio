@@ -28,7 +28,6 @@ const Navbar = () => {
         if (entry.isIntersecting) {
           foundSection = true;
           setActiveSection(sectionId);
-          window.history.replaceState(null, "", `#${sectionId}`);
         }
 
         if (distance < minDistance) {
@@ -58,11 +57,12 @@ const Navbar = () => {
     };
   }, []);
 
-  const scrollToHero = () => {
-    const heroSection = document.getElementById("hero");
-    if (heroSection) {
-      heroSection.scrollIntoView({ behavior: "smooth" });
+  const scrollToSection = (id: string) => {
+    const section = document.getElementById(id);
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
     }
+    setMenuOpen(false);
   };
 
   return (
@@ -73,26 +73,27 @@ const Navbar = () => {
     >
       <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center text-white">
         <div
-          className="text-2xl font-bold cursor-pointer"
-          onClick={scrollToHero}
+          className="flex items-center gap-3 text-2xl font-bold hover:opacity-80 transition"
+          onClick={() => scrollToSection("hero")}
         >
           <img
             src="./favicon.ico"
             alt="Logo"
-            className="w-10 h-10 rounded-full"
+            className="w-10 h-10 rounded-full object-cover"
           />
         </div>
+
         <ul className="hidden md:flex gap-8 text-lg font-medium">
           {navItems.map((item) => (
             <li key={item.name}>
-              <a
-                href={`#${item.link}`}
+              <button
+                onClick={() => scrollToSection(item.link)}
                 className={`hover:text-blue-400 transition-all ${
                   activeSection === item.link ? "text-blue-500" : "text-white"
                 }`}
               >
                 {item.name}
-              </a>
+              </button>
             </li>
           ))}
         </ul>
@@ -108,18 +109,17 @@ const Navbar = () => {
         } overflow-hidden`}
       >
         {navItems.map((item) => (
-          <a
+          <button
             key={item.name}
-            href={`#${item.link}`}
-            onClick={() => setMenuOpen(false)}
-            className={`block py-2 text-xl text-white ${
+            onClick={() => scrollToSection(item.link)}
+            className={`block py-2 text-xl ${
               activeSection === item.link
                 ? "text-blue-500"
-                : "hover:text-blue-400"
+                : "text-white hover:text-blue-400"
             }`}
           >
             {item.name}
-          </a>
+          </button>
         ))}
       </div>
     </nav>
