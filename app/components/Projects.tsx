@@ -2,6 +2,8 @@
 import React, { useState, useEffect } from "react";
 import { HoverEffect } from "./ui/card-hover-effect";
 import { IconArrowNarrowLeft, IconArrowNarrowRight } from "@tabler/icons-react";
+import { LayoutTextFlip } from "./ui/layout-text-flip";
+import { motion } from "motion/react";
 
 interface Project {
   id: number;
@@ -63,13 +65,13 @@ const Projects: React.FC = () => {
 
   return (
     <div className="projects-container bg-black text-white px-4 sm:px-6 md:px-10 py-16 sm:py-20">
-      <div className="w-full text-center py-8">
-        <p className="text-2xl md:text-3xl font-semibold text-white tracking-wide">
-          Welcome to <span className="text-purple-500">CodeCave</span>,
-          <br className="hidden md:block" />
-          where the <span className="text-slate-300">Batman of code</span>{" "}
-          dwells 🦇
-        </p>
+      <div className="w-full py-12 text-center">
+        <motion.div className="relative mx-4 my-4 flex flex-col items-center justify-center gap-4 text-center sm:mx-0 sm:mb-0 sm:flex-row">
+          <LayoutTextFlip
+            text="Welcome to "
+            words={["Fight Club", "Code Cave"]}
+          />
+        </motion.div>
       </div>
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 ">
         <HoverEffect items={paginatedProjects} />

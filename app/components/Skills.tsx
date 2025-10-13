@@ -1,32 +1,25 @@
-"use client";
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { client } from "@/sanity/lib/client";
+import { groq } from "next-sanity";
 
 interface Skill {
+  _id: string;
   name: string;
   category: string;
-  icon?: string; // optional
+  icon?: string;
 }
 
-const Skills = () => {
-  const [skills, setSkills] = useState<Skill[]>([]);
+// GROQ query to fetch all skills
+const query = groq`*[_type == "skill"] | order(category asc, name asc) {
+  _id,
+  name,
+  category,
+  "icon": icon.asset->url
+}`;
 
-  useEffect(() => {
-    const fetchSkills = async () => {
-      try {
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL!}/api/skills`
-        );
-        const data = await response.json();
-        console.log("data:", data);
-        setSkills(data);
-      } catch (error) {
-        console.error("Failed to fetch skills:", error);
-      }
-    };
-
-    fetchSkills();
-  }, []);
-  console.log("skills:", skills);
+// Server Component - fetches data directly from Sanity
+const Skills = async () => {
+  const skills: Skill[] = await client.fetch(query);
 
   return (
     <div className="projects-container bg-black text-white px-4 sm:px-6 md:px-10 py-16 sm:py-20">
@@ -39,13 +32,19 @@ const Skills = () => {
           of my coding cave.
         </p>
       </div>
-
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-4 max-w-screen-xl mx-auto">
-        {skills.map((skill, index) => (
+        {skills.map((skill) => (
           <div
-            key={index}
+            key={skill._id}
             className="flex items-center justify-center gap-3 p-3 rounded-xl bg-white/10 backdrop-blur-md border border-white/30 shadow-md hover:scale-105 transition-transform duration-300"
           >
+            {skill.icon && (
+              <img
+                src={skill.icon}
+                alt={skill.name}
+                className="w-8 h-8 object-contain"
+              />
+            )}
             <div>
               <p className="text-sm font-semibold text-white">{skill.name}</p>
               <p className="text-xs text-gray-300 capitalize">
