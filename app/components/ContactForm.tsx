@@ -62,10 +62,7 @@ const ContactForm: React.FC = () => {
   return (
     <div className="flex flex-col items-center justify-center bg-black rounded-2xl w-full p-6 sm:p-8 space-y-8 h-auto sm:h-[40rem]">
       <div className="flex h-full justify-center text-center w-full">
-        <TextRevealCard
-          text="Don't tell anyone..."
-          revealText="I'm Batman 🦇"
-        />
+        <TextRevealCard text="Don't tell anyone..." revealText="I'm Batman" />
       </div>
       <TextRevealCardDescription>
         Feel free to drop a message. I&apos;ll get back to you as soon as

@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "npm install --force && next build",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "deploy": "npm run build && npm run export"
@@ -24,6 +24,7 @@
     "clsx": "^2.1.1",
     "dotenv": "^16.4.7",
     "framer-motion": "^11.18.1",
+    "groq": "^3.74.0",
     "gsap": "^3.12.7",
     "mini-svg-data-uri": "^1.4.4",
     "motion": "^12.0.5",

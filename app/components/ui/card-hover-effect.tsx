@@ -1,3 +1,4 @@
+"use client";
 import { cn } from "../ui/lib/utils";
 import { AnimatePresence, motion } from "motion/react";
 import Link from "next/link";

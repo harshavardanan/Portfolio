@@ -1,15 +1,20 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  basePath: "", // while pushing to github pages, set this to "/<REPO_NAME>"
-  trailingSlash: true,
+  distDir: "build",
+  reactStrictMode: true,
   images: {
-    unoptimized: true,
-  },
-  typescript: {
-    ignoreBuildErrors: true,
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "cdn.sanity.io",
+      },
+    ],
   },
   eslint: {
     ignoreDuringBuilds: true,
+  },
+  typescript: {
+    ignoreBuildErrors: true,
   },
 };
 
