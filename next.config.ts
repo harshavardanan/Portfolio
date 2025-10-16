@@ -9,6 +9,7 @@ const nextConfig = {
         hostname: "cdn.sanity.io",
       },
     ],
+    unoptimized: true,
   },
   eslint: {
     ignoreDuringBuilds: true,

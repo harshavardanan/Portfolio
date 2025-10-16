@@ -1,4 +1,5 @@
 # === Common Ignored Folders ===
+
 node_modules
 .vercel
 build
@@ -8,19 +9,22 @@ dist
 coverage
 
 # === Sanity Studio (we don't deploy this to Vercel) ===
+
 studio/
 studio/node_modules
 studio/dist
 
 # === Environment Files ===
+
 .env
 .env.local
 .env.development
 .env.production
 
 # === Misc ===
-*.pem
+
+_.pem
 .DS_Store
-*.log
-*.tsbuildinfo
+_.log
+\*.tsbuildinfo
 next-env.d.ts
