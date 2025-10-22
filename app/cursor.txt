@@ -1,0 +1,10 @@
+<svg
+  fill="skyblue"
+  stroke="skyblue"
+  strokeWidth="1"
+  viewBox="0 0 16 16"
+  className="h-6 w-6 -translate-x-[12px] -translate-y-[10px] transform"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <path d="M1.918 2.182a.5.5 0 0 0-.103.557L7.472 15.467a.5.5 0 0 0 .917-.007L10.43 10.694l4.767-2.042a.5.5 0 0 0 .006-.916L2.474 2.079a.5.5 0 0 0-.556.103z" />
+</svg>
