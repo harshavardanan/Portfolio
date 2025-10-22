@@ -7,7 +7,7 @@ import Footer from "./Footer";
 const Contact = () => {
   return (
     <div className="h-full w-full bg-black">
-      <GlobeDemo />
+      {/* <GlobeDemo /> */}
       <ContactForm />
       <Footer />
     </div>
