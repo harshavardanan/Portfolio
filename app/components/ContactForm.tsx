@@ -1,7 +1,5 @@
 "use client";
 import React, { useState, ChangeEvent, FormEvent } from "react";
-import { TextRevealCard, TextRevealCardDescription } from "./ui/text-reveal";
-require("dotenv").config();
 
 interface FormData {
   name: string;
@@ -15,7 +13,6 @@ const ContactForm: React.FC = () => {
     email: "",
     message: "",
   });
-
   const [buttonState, setButtonState] = useState<"idle" | "sending" | "sent">(
     "idle"
   );
@@ -41,65 +38,95 @@ const ContactForm: React.FC = () => {
       );
 
       const result = await response.json();
-
-      if (result.success) {
+      if (response.ok && result.success) {
+        // Check response.ok for network success
         setFormData({ name: "", email: "", message: "" });
         setButtonState("sent");
+        setTimeout(() => setButtonState("idle"), 3000); // Reset after 3s only on success
       } else {
+        console.error(
+          "Failed to send message:",
+          result.error || "Unknown error"
+        );
         setButtonState("idle");
+        // Optionally show an error message to the user here
       }
     } catch (error) {
+      console.error("Error submitting form:", error);
       setButtonState("idle");
-    } finally {
-      if (buttonState !== "sent") {
-        setTimeout(() => setButtonState("idle"), 2500);
-      } else {
-        setTimeout(() => setButtonState("idle"), 3000);
-      }
+      // Optionally show an error message to the user here
     }
+    // Removed finally block so timeout only happens on success
   };
 
   return (
-    <div className="flex flex-col items-center justify-center bg-black rounded-2xl w-full p-6 sm:p-8 space-y-8 h-auto sm:h-[40rem]">
-      <div className="flex h-full justify-center text-center w-full">
-        <TextRevealCard text="Don't tell anyone..." revealText="I'm Batman" />
-      </div>
-      <TextRevealCardDescription>
-        Feel free to drop a message. I&apos;ll get back to you as soon as
-        possible.
-      </TextRevealCardDescription>
+    <div className="flex justify-center items-center w-full px-4 py-10 bg-transparent">
+      <div className="w-full max-w-md rounded-2xl border border-neutral-800 bg-neutral-900/50 backdrop-blur-md shadow-lg p-6">
+        <h2 className="text-2xl font-semibold text-white mb-2">Get in touch</h2>
+        <p className="text-sm text-neutral-400 mb-6">
+          I’d love to hear from you! Fill out the form below and I’ll get back
+          to you soon.
+        </p>
 
-      <form onSubmit={handleSubmit} className="w-full max-w-2xl space-y-4">
-        <div className="flex flex-col gap-4">
-          <input
-            type="text"
-            name="name"
-            placeholder="Your name"
-            autoComplete="off"
-            value={formData.name}
-            onChange={handleChange}
-            required
-            className="w-full py-3 px-4 text-white bg-gray-800 border border-gray-600 rounded-md outline-none focus:ring-2 focus:ring-blue-500"
-          />
-          <input
-            type="email"
-            name="email"
-            placeholder="Your email address"
-            autoComplete="off"
-            value={formData.email}
-            onChange={handleChange}
-            required
-            className="w-full py-3 px-4 text-white bg-gray-800 border border-gray-600 rounded-md outline-none focus:ring-2 focus:ring-blue-500"
-          />
-          <textarea
-            name="message"
-            placeholder="Type your message here..."
-            rows={4}
-            value={formData.message}
-            onChange={handleChange}
-            required
-            className="w-full py-3 px-4 text-white bg-gray-800 border border-gray-600 rounded-md outline-none focus:ring-2 focus:ring-blue-500 resize-none"
-          />
+        <form onSubmit={handleSubmit} className="space-y-5">
+          {/* Input fields remain the same */}
+          <div>
+            <label
+              htmlFor="name"
+              className="block text-sm text-neutral-300 mb-1"
+            >
+              Name
+            </label>
+            <input
+              type="text"
+              name="name"
+              id="name"
+              value={formData.name}
+              onChange={handleChange}
+              required
+              placeholder="John Doe"
+              className="w-full px-4 py-2.5 rounded-lg bg-neutral-800 text-white placeholder-neutral-500 border border-neutral-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30 outline-none transition-all"
+            />
+          </div>
+
+          <div>
+            <label
+              htmlFor="email"
+              className="block text-sm text-neutral-300 mb-1"
+            >
+              Email
+            </label>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+              placeholder="you@example.com"
+              className="w-full px-4 py-2.5 rounded-lg bg-neutral-800 text-white placeholder-neutral-500 border border-neutral-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30 outline-none transition-all"
+            />
+          </div>
+
+          <div>
+            <label
+              htmlFor="message"
+              className="block text-sm text-neutral-300 mb-1"
+            >
+              Message
+            </label>
+            <textarea
+              name="message"
+              id="message"
+              rows={4}
+              value={formData.message}
+              onChange={handleChange}
+              required
+              placeholder="Type your message here..."
+              className="w-full px-4 py-2.5 rounded-lg bg-neutral-800 text-white placeholder-neutral-500 border border-neutral-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30 outline-none transition-all resize-none"
+            />
+          </div>
+
           <button
             type="submit"
             disabled={buttonState !== "idle"}
@@ -108,11 +135,13 @@ const ContactForm: React.FC = () => {
               px-6 py-3 rounded-lg font-medium text-white
               bg-blue-600 hover:bg-blue-700 active:bg-blue-800
               transition-all duration-300 ease-in-out
-              overflow-hidden min-w-[160px]
+              overflow-hidden
+              w-full  {/* <-- FIX: Changed min-w-[160px] to w-full */}
               disabled:opacity-80 disabled:cursor-not-allowed
               border border-blue-400
             `}
           >
+            {/* Inner spans remain the same */}
             <span
               className={`transition-all duration-300 ${
                 buttonState !== "idle"
@@ -153,8 +182,8 @@ const ContactForm: React.FC = () => {
               />
             </svg>
           </button>
-        </div>
-      </form>
+        </form>
+      </div>
     </div>
   );
 };
