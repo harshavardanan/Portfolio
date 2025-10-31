@@ -64,37 +64,43 @@ const Projects: React.FC = () => {
   );
 
   return (
-    <div className="projects-container bg-black text-white px-4 sm:px-6 md:px-10 py-16 sm:py-20">
-      <div className="w-full py-12 text-center">
-        <motion.div className="relative mx-4 my-4 flex flex-col items-center justify-center gap-4 text-center sm:mx-0 sm:mb-0 sm:flex-row">
+    <div className="projects-container bg-black text-white px-4 sm:px-6 md:px-10 py-12 sm:py-16 md:py-20">
+      <div className="w-full py-6 sm:py-8 md:py-12 text-center">
+        <motion.div className="relative mx-2 sm:mx-4 my-3 sm:my-4 flex flex-col items-center justify-center gap-3 sm:gap-4 text-center sm:flex-row">
           <LayoutTextFlip
             text="Welcome to "
             words={["Fight Club", "Code Cave"]}
           />
         </motion.div>
+        <p className="text-sm sm:text-base md:text-lg text-neutral-300 mt-3 sm:mt-4 px-4 sm:px-6 max-w-3xl mx-auto">
+          Here&apos;s a few projects on my github which I have been working on
+          for a while.
+        </p>
       </div>
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 ">
+      <div className="max-w-5xl mx-auto px-2 sm:px-4 md:px-6 lg:px-8">
         <HoverEffect items={paginatedProjects} />
         {projects.length > ITEMS_PER_PAGE && (
-          <div className="flex justify-center items-center gap-6 mt-10">
+          <div className="flex justify-center items-center gap-4 sm:gap-6 mt-8 sm:mt-10">
             <button
               onClick={handlePrev}
               disabled={currentPage === 0}
-              className={`w-10 h-10 flex items-center justify-center bg-neutral-800 border-3 border-transparent rounded-full focus:border-[#6D64F7] focus:outline-none hover:-translate-y-0.5 active:translate-y-0.5 transition duration-200 disabled:opacity-40`}
+              className="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center bg-neutral-800 border-2 sm:border-3 border-transparent rounded-full focus:border-[#6D64F7] focus:outline-none hover:-translate-y-0.5 active:translate-y-0.5 transition duration-200 disabled:opacity-40 disabled:cursor-not-allowed"
+              aria-label="Previous page"
             >
-              <IconArrowNarrowLeft className="text-neutral-200" />
+              <IconArrowNarrowLeft className="text-neutral-200 w-5 h-5 sm:w-6 sm:h-6" />
             </button>
 
-            <span className="text-white text-sm">
+            <span className="text-white text-xs sm:text-sm md:text-base font-medium">
               Page {currentPage + 1} of {totalPages}
             </span>
 
             <button
               onClick={handleNext}
               disabled={currentPage === totalPages - 1}
-              className={`w-10 h-10 flex items-center justify-center bg-neutral-800 border-3 border-transparent rounded-full focus:border-[#6D64F7] focus:outline-none hover:-translate-y-0.5 active:translate-y-0.5 transition duration-200 disabled:opacity-40`}
+              className="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center bg-neutral-800 border-2 sm:border-3 border-transparent rounded-full focus:border-[#6D64F7] focus:outline-none hover:-translate-y-0.5 active:translate-y-0.5 transition duration-200 disabled:opacity-40 disabled:cursor-not-allowed"
+              aria-label="Next page"
             >
-              <IconArrowNarrowRight className="text-neutral-200" />
+              <IconArrowNarrowRight className="text-neutral-200 w-5 h-5 sm:w-6 sm:h-6" />
             </button>
           </div>
         )}
