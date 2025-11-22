@@ -34,17 +34,3 @@ export default async function Home() {
     </div>
   );
 }
-
-// export default async function Home() {
-//   const timeline = await client.fetch(
-//     `*[_type == "timelineItem"]{title, date}`
-//   );
-//   console.log(timeline);
-
-//   return (
-//     <main>
-//       <h1>My Timeline</h1>
-//       <pre>{JSON.stringify(timeline, null, 2)}</pre>
-//     </main>
-//   );
-// }
