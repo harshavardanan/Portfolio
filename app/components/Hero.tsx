@@ -2,6 +2,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { LampContainer } from "./ui/lamp";
+import { EncryptedText } from "./ui/encrypted-text";
 
 const Hero = () => {
   return (
@@ -17,10 +18,15 @@ const Hero = () => {
           }}
           className="mt-12 bg-gradient-to-br from-slate-300 to-slate-500 py-4 bg-clip-text text-center text-4xl font-semibold tracking-tight text-transparent md:text-6xl"
         >
-          Harshavardanan <br />
-          <p className="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-blue-500 mt-2 sm:text-4xl md:text-5xl">
-            FullStack Web Developer
-          </p>
+          Harshavardanan&#44; <br />
+          <div className="text-3xl font-extrabold mt-2 sm:text-4xl md:text-5xl">
+            <EncryptedText
+              text="FullStack Web Developer"
+              encryptedClassName="text-neutral-600"
+              revealedClassName="text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-blue-500"
+              revealDelayMs={50}
+            />
+          </div>
         </motion.h1>
       </LampContainer>
     </div>
