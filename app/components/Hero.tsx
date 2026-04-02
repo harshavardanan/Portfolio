@@ -18,7 +18,12 @@ const Hero = () => {
           }}
           className="mt-12 bg-gradient-to-br from-slate-300 to-slate-500 py-4 bg-clip-text text-center text-4xl font-semibold tracking-tight text-transparent md:text-6xl"
         >
-          Harshavardanan&#44; <br />
+          <EncryptedText
+            text="Harshavardanan,"
+            encryptedClassName="text-neutral-600"
+            revealedClassName="text-transparent"
+            revealDelayMs={50}
+          /> <br />
           <div className="text-3xl font-extrabold mt-2 sm:text-4xl md:text-5xl">
             <EncryptedText
               text="FullStack Web Developer"

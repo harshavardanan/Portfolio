@@ -13,9 +13,10 @@ const ContactForm: React.FC = () => {
     email: "",
     message: "",
   });
-  const [buttonState, setButtonState] = useState<"idle" | "sending" | "sent">(
-    "idle"
-  );
+  const [buttonState, setButtonState] = useState<
+    "idle" | "sending" | "sent" | "error"
+  >("idle");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -26,16 +27,15 @@ const ContactForm: React.FC = () => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setButtonState("sending");
+    setErrorMessage("");
 
     try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL!}/api/send-email`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(formData),
-        }
-      );
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+      const response = await fetch(`${apiUrl}/api/send-email`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
 
       const result = await response.json();
       if (response.ok && result.success) {
@@ -43,15 +43,16 @@ const ContactForm: React.FC = () => {
         setButtonState("sent");
         setTimeout(() => setButtonState("idle"), 3000);
       } else {
-        console.error(
-          "Failed to send message:",
-          result.error || "Unknown error"
-        );
-        setButtonState("idle");
+        console.error("Failed to send message:", result.error || "Unknown error");
+        setErrorMessage(result.error || "Failed to send message. Please try again.");
+        setButtonState("error");
+        setTimeout(() => setButtonState("idle"), 4000);
       }
     } catch (error) {
       console.error("Error submitting form:", error);
-      setButtonState("idle");
+      setErrorMessage("Network error. Please try again later.");
+      setButtonState("error");
+      setTimeout(() => setButtonState("idle"), 4000);
     }
   };
 
@@ -162,6 +163,13 @@ const ContactForm: React.FC = () => {
             >
               Message Sent
             </span>
+            <span
+              className={`absolute transition-all duration-300 text-sm sm:text-base text-red-100 ${
+                buttonState === "error" ? "opacity-100" : "opacity-0"
+              }`}
+            >
+              Error
+            </span>
             <svg
               className={`w-4 h-4 transition-all duration-300 ${
                 buttonState !== "idle"
@@ -178,6 +186,12 @@ const ContactForm: React.FC = () => {
               />
             </svg>
           </button>
+          
+          {buttonState === "error" && errorMessage && (
+            <p className="text-red-400 text-xs sm:text-sm text-center mt-2 animate-pulse">
+              {errorMessage}
+            </p>
+          )}
         </form>
       </div>
     </div>

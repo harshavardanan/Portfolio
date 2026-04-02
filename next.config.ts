@@ -3,9 +3,7 @@ const nextConfig = {
   distDir: "build",
   reactStrictMode: true,
   images: {
-    domains: [
-      "api.microlink.io", // Microlink Image Preview
-    ],
+    domains: ["api.microlink.io"],
     remotePatterns: [
       {
         protocol: "https",
