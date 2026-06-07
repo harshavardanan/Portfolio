@@ -17,21 +17,21 @@ export async function POST(req: NextRequest) {
     if (!name?.trim() || !email?.trim() || !message?.trim()) {
       return NextResponse.json(
         { success: false, error: "All fields are required." },
-        { status: 400 },
+        { status: 400 }
       );
     }
 
     if (!isValidEmail(email)) {
       return NextResponse.json(
         { success: false, error: "Please enter a valid email address." },
-        { status: 400 },
+        { status: 400 }
       );
     }
 
     if (message.trim().length < 10) {
       return NextResponse.json(
         { success: false, error: "Message must be at least 10 characters." },
-        { status: 400 },
+        { status: 400 }
       );
     }
 
@@ -46,7 +46,7 @@ export async function POST(req: NextRequest) {
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>New Portfolio Message</title>
+  <title>New Message</title>
 </head>
 <body style="margin:0;padding:0;background:#f4f4f4;font-family:Arial,Helvetica,sans-serif;">
   <table width="100%" cellpadding="0" cellspacing="0" style="background:#f4f4f4;padding:24px 16px;">
@@ -58,7 +58,6 @@ export async function POST(req: NextRequest) {
               <table width="100%" cellpadding="0" cellspacing="0">
                 <tr>
                   <td style="padding:28px 32px;vertical-align:middle;width:60%;">
-                    <p style="margin:0 0 4px;font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#3b82f6;">Portfolio</p>
                     <h1 style="margin:0;font-size:22px;font-weight:800;color:#ffffff;letter-spacing:-0.3px;line-height:1.2;">Harshavardanan<br/>Moorthy</h1>
                   </td>
                   <td style="padding:0;vertical-align:middle;text-align:right;width:40%;">
@@ -76,12 +75,12 @@ export async function POST(req: NextRequest) {
             <td style="padding:32px 32px 8px;background:#ffffff;">
               <p style="margin:0 0 18px;font-size:15px;color:#111827;">Hello Harshavardanan,</p>
               <p style="margin:0 0 18px;font-size:15px;color:#374151;line-height:1.7;">
-                You have a new message from <strong>${name}</strong> (<a href="mailto:${email}" style="color:#2563eb;text-decoration:none;">${email}</a>) via your portfolio contact form.
+                You have a new message from <strong>${name}</strong> (<a href="mailto:${email}" style="color:#2563eb;text-decoration:none;">${email}</a>).
               </p>
               <p style="margin:0 0 6px;font-size:13px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:1px;">Message</p>
               <p style="margin:0 0 24px;font-size:15px;color:#374151;line-height:1.8;border-left:3px solid #3b82f6;padding-left:14px;white-space:pre-wrap;">${message}</p>
               <p style="margin:0 0 32px;">
-                <a href="mailto:${email}?subject=Re: Your portfolio message"
+                <a href="mailto:${email}?subject=Re: Your message"
                    style="display:inline-block;padding:10px 22px;background:#1d4ed8;color:#ffffff;font-size:13px;font-weight:600;text-decoration:none;border-radius:4px;">
                   Reply to ${name} &rarr;
                 </a>
@@ -120,7 +119,6 @@ export async function POST(req: NextRequest) {
               <table width="100%" cellpadding="0" cellspacing="0">
                 <tr>
                   <td style="padding:28px 32px;vertical-align:middle;width:60%;">
-                    <p style="margin:0 0 4px;font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#3b82f6;">Portfolio</p>
                     <h1 style="margin:0;font-size:22px;font-weight:800;color:#ffffff;letter-spacing:-0.3px;line-height:1.2;">Harshavardanan<br/>Moorthy</h1>
                   </td>
                   <td style="padding:0;vertical-align:middle;text-align:right;width:40%;">
@@ -136,13 +134,13 @@ export async function POST(req: NextRequest) {
           </tr>
           <tr>
             <td style="padding:32px 32px 32px;background:#ffffff;">
-              <p style="margin:0 0 18px;font-size:15px;color:#111827;">Hi ${name}, 👋</p>
+              <p style="margin:0 0 18px;font-size:15px;color:#111827;">Hey ${name},</p>
               <p style="margin:0 0 18px;font-size:15px;color:#374151;line-height:1.7;">
-                I have received your message! I will get back to you ASAP. 🚀
+                I have received your message, will get back to you ASAP.
               </p>
-              <p style="margin:0 0 18px;font-size:15px;color:#374151;line-height:1.7;">
-                Best regards,<br/>
-                <strong>Harshavardanan Moorthy</strong>
+              <p style="margin:0;font-size:15px;color:#374151;line-height:1.7;">
+                thanks,<br/>
+                Harshavardanan Moorthy
               </p>
             </td>
           </tr>
@@ -166,7 +164,7 @@ export async function POST(req: NextRequest) {
         from: FROM_EMAIL,
         to: [RECEIVER_EMAIL],
         replyTo: email,
-        subject: `New message from ${name} — Portfolio`,
+        subject: `New message from ${name}`,
         html: portfolioEmailHtml,
       }),
       resend.emails.send({
@@ -182,7 +180,7 @@ export async function POST(req: NextRequest) {
       console.error("Resend error:", emailToOwner.error || emailToSender.error);
       return NextResponse.json(
         { success: false, error: "Failed to send message. Please try again." },
-        { status: 500 },
+        { status: 500 }
       );
     }
 
@@ -194,7 +192,7 @@ export async function POST(req: NextRequest) {
         success: false,
         error: "An unexpected error occurred. Please try again later.",
       },
-      { status: 500 },
+      { status: 500 }
     );
   }
 }
