@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 const RECEIVER_EMAIL = "harshamoorthy22@gmail.com";
-const FROM_EMAIL = "Portfolio Contact <onboarding@resend.dev>";
+const FROM_EMAIL = "Portfolio Contact <harshavardanan.in>";
 
 function isValidEmail(email: string): boolean {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
