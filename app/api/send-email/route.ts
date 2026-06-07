@@ -17,21 +17,21 @@ export async function POST(req: NextRequest) {
     if (!name?.trim() || !email?.trim() || !message?.trim()) {
       return NextResponse.json(
         { success: false, error: "All fields are required." },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
     if (!isValidEmail(email)) {
       return NextResponse.json(
         { success: false, error: "Please enter a valid email address." },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
     if (message.trim().length < 10) {
       return NextResponse.json(
         { success: false, error: "Message must be at least 10 characters." },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -92,7 +92,7 @@ export async function POST(req: NextRequest) {
             <td style="padding:16px 32px 24px;background:#ffffff;border-top:1px solid #e5e7eb;">
               <p style="margin:0;font-size:11px;color:#9ca3af;line-height:1.6;">
                 Received ${receivedAt} &nbsp;&middot;&nbsp;
-                <a href="https://harshavardanan.vercel.app" style="color:#9ca3af;text-decoration:none;">harshavardanan.dev</a>
+                <a href="https://harshavardanan.in" style="color:#9ca3af;text-decoration:none;">harshavardanan.in</a>
               </p>
             </td>
           </tr>
@@ -149,7 +149,7 @@ export async function POST(req: NextRequest) {
           <tr>
             <td style="padding:16px 32px 24px;background:#ffffff;border-top:1px solid #e5e7eb;">
               <p style="margin:0;font-size:11px;color:#9ca3af;line-height:1.6;">
-                <a href="https://harshavardanan.vercel.app" style="color:#9ca3af;text-decoration:none;">harshavardanan.dev</a>
+                <a href="https://harshavardanan.in" style="color:#9ca3af;text-decoration:none;">harshavardanan.in</a>
               </p>
             </td>
           </tr>
@@ -182,7 +182,7 @@ export async function POST(req: NextRequest) {
       console.error("Resend error:", emailToOwner.error || emailToSender.error);
       return NextResponse.json(
         { success: false, error: "Failed to send message. Please try again." },
-        { status: 500 }
+        { status: 500 },
       );
     }
 
@@ -194,7 +194,7 @@ export async function POST(req: NextRequest) {
         success: false,
         error: "An unexpected error occurred. Please try again later.",
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
