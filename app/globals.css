@@ -10,6 +10,14 @@
     url("cursor.ico") 8 8,
     auto;
 }
+html {
+  scroll-behavior: smooth;
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
 html,
 body {
   height: 100%;

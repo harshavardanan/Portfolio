@@ -2,21 +2,21 @@
 const nextConfig = {
   distDir: "build",
   reactStrictMode: true,
+  turbopack: {
+    root: __dirname,
+  },
   images: {
-    domains: ["api.microlink.io"],
     remotePatterns: [
       {
         protocol: "https",
         hostname: "cdn.sanity.io",
       },
+      {
+        protocol: "https",
+        hostname: "api.microlink.io",
+      },
     ],
     unoptimized: true,
-  },
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
-  typescript: {
-    ignoreBuildErrors: true,
   },
 };
 

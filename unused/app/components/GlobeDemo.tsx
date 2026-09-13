@@ -7,7 +7,7 @@ const World = dynamic(() => import("./ui/globe").then((m) => m.World), {
   ssr: false,
 });
 
-export function GlobeDemo() {
+export function GlobeDemo({ compact = false }: { compact?: boolean } = {}) {
   const globeConfig = {
     pointSize: 4,
     globeColor: "#062056",
@@ -393,6 +393,17 @@ export function GlobeDemo() {
       color: colors[Math.floor(Math.random() * (colors.length - 1))],
     },
   ];
+
+  // Compact mode: just the globe canvas, filling whatever box the caller
+  // gives it — used as a backdrop behind other content instead of as its
+  // own full-width section.
+  if (compact) {
+    return (
+      <div className="absolute inset-0">
+        <World data={sampleArcs} globeConfig={globeConfig} />
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col items-center justify-center py-8 sm:py-12 md:py-16 lg:py-20 min-h-[500px] sm:min-h-[600px] md:min-h-screen lg:h-auto bg-black relative w-full">

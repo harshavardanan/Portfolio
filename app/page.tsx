@@ -1,10 +1,12 @@
 // import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
+// import Hero3D from "./components/Hero3D"; // 3D workstation hero (kept, swap in anytime)
 import Projects from "./components/Projects";
 import Showcase from "./components/Showcase";
 import Contact from "./components/Contact";
 import About from "./components/About";
 import Skills from "./components/Skills";
+import { Reveal } from "@/components/ui/reveal";
 
 export default async function Home() {
   return (
@@ -15,19 +17,29 @@ export default async function Home() {
           <Hero />
         </section>
         <section id="about" className="relative z-10">
-          <About />
+          <Reveal>
+            <About />
+          </Reveal>
         </section>
         <section id="skills" className="relative z-10">
-          <Skills />
+          <Reveal>
+            <Skills />
+          </Reveal>
         </section>
         <section id="projects" className="relative z-10">
-          <Projects />
+          <Reveal>
+            <Projects />
+          </Reveal>
         </section>
         <section id="showcase" className="relative z-10">
-          <Showcase />
+          <Reveal>
+            <Showcase />
+          </Reveal>
         </section>
         <section id="contact" className="relative z-10">
-          <Contact />
+          <Reveal>
+            <Contact />
+          </Reveal>
         </section>
       </main>
     </div>

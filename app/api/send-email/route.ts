@@ -158,8 +158,13 @@ export async function POST(req: NextRequest) {
 </body>
 </html>`;
 
-    // Send both emails concurrently
-    const [emailToOwner, emailToSender] = await Promise.all([
+    // Send both emails concurrently. The auto-reply to the visitor is
+    // best-effort: Resend's sandbox sender (onboarding@resend.dev) can only
+    // deliver to the account's own verified address until a custom domain is
+    // verified, so it will fail for real visitor addresses — that shouldn't
+    // count as a failure to send the actual message, which is the one to
+    // RECEIVER_EMAIL.
+    const [ownerResult, autoReplyResult] = await Promise.allSettled([
       resend.emails.send({
         from: FROM_EMAIL,
         to: [RECEIVER_EMAIL],
@@ -175,12 +180,28 @@ export async function POST(req: NextRequest) {
       }),
     ]);
 
-    // Check for errors in either send
-    if (emailToOwner.error || emailToSender.error) {
-      console.error("Resend error:", emailToOwner.error || emailToSender.error);
+    const ownerError =
+      ownerResult.status === "rejected"
+        ? ownerResult.reason
+        : ownerResult.value.error;
+
+    if (ownerError) {
+      console.error("Resend error (owner notification):", ownerError);
       return NextResponse.json(
         { success: false, error: "Failed to send message. Please try again." },
         { status: 500 }
+      );
+    }
+
+    const autoReplyError =
+      autoReplyResult.status === "rejected"
+        ? autoReplyResult.reason
+        : autoReplyResult.value.error;
+
+    if (autoReplyError) {
+      console.error(
+        "Resend error (visitor auto-reply, non-fatal):",
+        autoReplyError
       );
     }
 

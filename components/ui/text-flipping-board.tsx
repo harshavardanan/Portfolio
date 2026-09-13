@@ -42,16 +42,21 @@ const CELL_TEXT_STYLE: React.CSSProperties = {
 
 // ── Individual Split-Flap Character ───────────────────────────────────
 
-const FlapCell = React.memo(function FlapCell({
+export const FlapCell = React.memo(function FlapCell({
   target,
   delay,
   stepMs,
   flipDuration,
+  fontSize,
 }: {
   target: string;
   delay: number;
   stepMs: number;
   flipDuration: number;
+  /** Overrides the default cell font-size (a clamp() string). Lets callers
+   * with a different column count (e.g. a compact section heading) keep the
+   * board from over- or under-filling its container. */
+  fontSize?: string;
 }) {
   const [current, setCurrent] = useState(" ");
   const [prev, setPrev] = useState(" ");
@@ -119,6 +124,10 @@ const FlapCell = React.memo(function FlapCell({
     };
   }, [target, delay, stepMs]);
 
+  const textStyle: React.CSSProperties = fontSize
+    ? { ...CELL_TEXT_STYLE, fontSize }
+    : CELL_TEXT_STYLE;
+
   const show = current === " " ? "\u00A0" : current;
   const showPrev = prev === " " ? "\u00A0" : prev;
 
@@ -152,7 +161,7 @@ const FlapCell = React.memo(function FlapCell({
         >
           <div
             className={cn(textCx, textColor, "top-0 h-[200%]")}
-            style={CELL_TEXT_STYLE}
+            style={textStyle}
           >
             {show}
           </div>
@@ -167,7 +176,7 @@ const FlapCell = React.memo(function FlapCell({
         >
           <div
             className={cn(textCx, textColor, "bottom-0 h-[200%]")}
-            style={CELL_TEXT_STYLE}
+            style={textStyle}
           >
             {show}
           </div>
@@ -199,7 +208,7 @@ const FlapCell = React.memo(function FlapCell({
           >
             <div
               className={cn(textCx, flapTextColor, "top-0 h-[200%]")}
-              style={CELL_TEXT_STYLE}
+              style={textStyle}
             >
               {showPrev}
             </div>
@@ -230,7 +239,7 @@ const FlapCell = React.memo(function FlapCell({
           >
             <div
               className={cn(textCx, textColor, "bottom-0 h-[200%]")}
-              style={CELL_TEXT_STYLE}
+              style={textStyle}
             >
               {show}
             </div>

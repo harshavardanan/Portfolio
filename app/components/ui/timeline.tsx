@@ -6,6 +6,7 @@ import {
   motion,
 } from "framer-motion";
 import React, { useEffect, useRef, useState } from "react";
+import { SplitFlapHeading } from "@/components/ui/split-flap-heading";
 
 interface TimelineEntry {
   title: string;
@@ -35,9 +36,10 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
   return (
     <div className="w-full bg-black font-sans md:px-10" ref={containerRef}>
       <div className="max-w-7xl mx-auto py-20 px-4 md:px-8 lg:px-10">
-        <h2 className="text-lg md:text-4xl mb-4 text-white max-w-4xl">
-          Timeline from my journey
-        </h2>
+        <SplitFlapHeading
+          text="TIMELINE FROM MY JOURNEY"
+          className="mb-4 max-w-full sm:max-w-xl md:max-w-2xl"
+        />
         <p className="text-neutral-700 dark:text-neutral-300 text-sm md:text-base max-w-sm">
           I&apos;ve been playing with code for a while now. Here&apos;s a look
           at my timeline.
